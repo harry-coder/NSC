@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="feedback.mpnsc" >
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+   <!-- <permission android:name="com.example.ismail.location_test.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/>
+
+    <uses-permission android:name="com.example.ismail.location_test.permission.MAPS_RECEIVE"/>-->
+
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/nsc"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="feedback.mpnsc.Splash"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+               <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="feedback.mpnsc.SearchTicket_Feasibility" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:screenOrientation="portrait"></activity>
+        <activity android:name="feedback.mpnsc.SearchTicket_FeasibilityTest"></activity>
+        <activity android:name="feedback.mpnsc.NewTicketNumber"></activity>
+        <activity android:name="feedback.mpnsc.Options" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:screenOrientation="portrait"></activity>
+        <activity android:name="feedback.mpnsc.TabBar"  ></activity>
+        <activity android:name="feedback.mpnsc.Tab1"  ></activity>
+        <activity android:name="feedback.mpnsc.Tab2"  ></activity>
+        <activity android:name="feedback.mpnsc.Tab3"  ></activity>
+        <activity android:name="feedback.mpnsc.CurrentDetail"  ></activity>
+        <activity android:name="feedback.mpnsc.BillingDetail"  ></activity>
+        <activity android:name="feedback.mpnsc.MeterImage"/>
+        <activity android:name="feedback.mpnsc.NoDuesImage"/>
+        <activity android:name="feedback.mpnsc.MeterInstImage"  ></activity>
+        <activity android:name="feedback.mpnsc.TicketList"/>
+        <activity android:name="feedback.mpnsc.SearchTicket" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:screenOrientation="portrait"/>
+        <activity android:name="feedback.mpnsc.MeterDetail"/>
+        <activity android:name="feedback.mpnsc.Login" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:screenOrientation="portrait"/>
+        <activity android:name="feedback.mpnsc.Feasibility" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:screenOrientation="portrait"/>
+        <activity android:name="feedback.mpnsc.Feasibility_photo"/>
+        <activity android:name="feedback.mpnsc.Feasibility_photo1"/>
+        <activity android:name="feedback.mpnsc.ConsumerImage"/>
+        <activity android:name="feedback.mpnsc.AadharImage"/>
+        <activity android:name="feedback.mpnsc.AddressImage"/>
+        <activity android:name="feedback.mpnsc.LandImage"/>
+        <activity android:name="feedback.mpnsc.exisitingconsumer.ExistingConsumer_Search" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:screenOrientation="portrait"/>
+        <activity android:name="feedback.mpnsc.exisitingconsumer.Existing_tab1"/>
+        <activity android:name="feedback.mpnsc.exisitingconsumer.Existing_CurrentDetailtest"/>
+        <activity android:name="feedback.mpnsc.exisitingconsumer.Existing_DataFinish"/>
+        <activity android:name="feedback.mpnsc.exisitingconsumer.Exisiting_BillingDetail"/>
+        <activity android:name="feedback.mpnsc.exisitingconsumer.Exisiting_tab3"/>
+        <activity android:name="feedback.mpnsc.exisitingconsumer.Existing_CaptureImage"/>
+        <activity android:name="feedback.mpnsc.SiteInspection_Activity2" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:screenOrientation="portrait"/>
+        <activity android:name="feedback.mpnsc.MapsActivity"/>
+
+        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="@string/api_key" />
+
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+
+
+    </application>
+
+</manifest>

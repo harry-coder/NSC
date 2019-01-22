@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:float="http://schemas.android.com/apk/res-auto"
+    style="@style/login_body">
+    <FrameLayout
+        style="@style/banner_main"
+        android:layout_weight="4.5">
+        <ImageView
+            style="@style/banner_img"
+            />
+        <LinearLayout
+            style="@style/bnr_shade"></LinearLayout>
+        <ImageView
+            style="@style/logo_main"
+            />
+    </FrameLayout>
+
+    <LinearLayout
+        style="@style/login_container"
+        android:layout_weight="5.5"
+        android:id="@+id/relativeLayout11">
+        <LinearLayout
+            style="@style/login_containerin">
+            <RelativeLayout
+                android:id="@+id/layout_username"
+                style="@style/holder_edtext">
+
+                <feedback.mpnsc.CustomTextInput
+                    android:id="@+id/edt_username"
+                    android:hint="User Name"
+                    android:text="admin"
+                    android:maxLength="50"
+                    style="@style/input_gen"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_password"
+                style="@style/holder_edtext">
+
+                <feedback.mpnsc.CustomTextInput
+                    android:hint="Password"
+                    android:text="admin@123"
+                    android:id="@+id/edt_passward"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:maxLength="50"
+                    style="@style/input_gen"/>
+
+            </RelativeLayout>
+            <Button
+                style="@style/btn_gen"
+                android:text="Login"
+                android:id="@+id/login"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="reset login"
+                android:id="@+id/reset"
+                android:textStyle="italic"
+                android:layout_alignBottom="@+id/login"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

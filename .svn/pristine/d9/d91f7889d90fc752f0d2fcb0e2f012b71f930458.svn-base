@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/innerpage_body">
+
+        <LinearLayout
+            style="@style/innerpage_scrollin"
+            android:layout_height="match_parent">
+            <LinearLayout
+                style="@style/innerpage_head">
+                <ImageView
+                    android:src="@drawable/ico_update"
+                    style="@style/innerpage_headico"/>
+                <feedback.mpnsc.CustomTextViewThin
+                    style="@style/innerpage_headtitle"
+                    android:text="Updated Customer"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/innerpage_content"
+                android:layout_height="match_parent"
+                android:paddingTop="150dp">
+
+                    <Button
+                        android:id="@+id/button1"
+                        style="@style/btn_gen"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:text="Send data to server" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+</LinearLayout>

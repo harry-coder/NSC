@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+
+        android:background="@drawable/dialog_shape">
+
+
+        <RadioGroup
+            android:id="@+id/radiogroup"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RadioButton
+                android:id="@+id/rb_accept"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:text="Accept"
+                style="@style/input_gen"
+                android:textColor="#764EC2"
+                android:textSize="15sp" />
+
+            <RadioButton
+                android:id="@+id/rb_reject"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                style="@style/input_gen"
+                android:text="Reject"
+                android:textColor="#764EC2"
+                android:textSize="15sp" />
+
+            <RadioButton
+                android:id="@+id/rb_hold"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:text="Hold"
+                style="@style/input_gen"
+                android:textColor="#764EC2"
+                android:textSize="15sp" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/et_reason"
+            android:layout_alignStart="@+id/et_reason"
+            android:layout_below="@+id/radiogroup"
+            android:layout_marginTop="10dp"
+            android:text="*Please enter the Reason"
+            android:visibility="gone"
+            android:textColor="#ff0000" />
+
+        <EditText
+            android:id="@+id/et_reason"
+            style="@style/input_gen"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/tv_textview"
+            android:layout_margin="10dp"
+            android:textColor="#fff"
+            android:visibility="gone"
+
+            />
+
+        <Button
+            style="@style/btn_gen"
+            android:id="@+id/bt_statusSubmit"
+
+            android:layout_below="@+id/et_reason"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+
+            android:layout_marginTop="10dp"
+            android:text="Submit"
+
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+
+            android:background="@drawable/ring_background" />
+    </RelativeLayout>
+
+</RelativeLayout>

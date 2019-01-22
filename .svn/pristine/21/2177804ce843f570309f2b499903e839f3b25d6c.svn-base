@@ -1,0 +1,35 @@
+#Internal package file, do not edit.
+#Tue Nov 27 10:31:32 IST 2018
+7.path=SystemSanFranciscoDisplayRegular.ttf
+2.base=E\:\\Android_Workspace\\NSC\\app\\build\\intermediates\\assets\\debug
+5.set=ASSET
+0.path=SystemSanFranciscoDisplayThin.ttf
+2.baseType=DIRECTORY
+3.base=E\:\\Android_Workspace\\NSC\\app\\build\\intermediates\\assets\\debug
+7.baseType=DIRECTORY
+2.set=ASSET
+1.path=Capsuula.ttf
+4.base=E\:\\Android_Workspace\\NSC\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+7.set=ASSET
+count=8
+5.baseType=DIRECTORY
+2.path=fonts/Roboto-Medium.ttf
+5.base=E\:\\Android_Workspace\\NSC\\app\\build\\intermediates\\assets\\debug
+4.set=DEX
+3.path=fonts/SystemSanFranciscoDisplayThin.ttf
+6.base=E\:\\Android_Workspace\\NSC\\app\\build\\intermediates\\assets\\debug
+3.baseType=DIRECTORY
+1.set=ASSET
+4.path=classes.dex
+7.base=E\:\\Android_Workspace\\NSC\\app\\build\\intermediates\\assets\\debug
+6.set=ASSET
+1.baseType=DIRECTORY
+6.baseType=DIRECTORY
+5.path=fonts/SystemSanFranciscoDisplayRegular.ttf
+0.base=E\:\\Android_Workspace\\NSC\\app\\build\\intermediates\\assets\\debug
+0.baseType=DIRECTORY
+3.set=ASSET
+6.path=fonts/Capsuula.ttf
+1.base=E\:\\Android_Workspace\\NSC\\app\\build\\intermediates\\assets\\debug
+4.baseType=DIRECTORY
+0.set=ASSET

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#a88fd6">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="383dp"
+        android:id="@+id/relativeLayout1"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/SeqNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:text="Sr. No" />
+
+        <TextView
+            android:id="@+id/TokenNo"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="3dp"
+            android:layout_toEndOf="@+id/SeqNo"
+            android:text="Ticket No" />
+
+        <TextView
+            android:id="@+id/CustomerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="15dp"
+            android:textStyle="bold"
+            android:layout_marginTop="3dp"
+            android:layout_toEndOf="@+id/TokenNo"
+            android:text="Name" />
+    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/relativelayout2"
+            android:layout_below="@+id/relativeLayout1"
+            android:layout_height="wrap_content"></RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativelayout2">
+        <include layout="@layout/list_view_layout"/>
+
+    </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

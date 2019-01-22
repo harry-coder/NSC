@@ -1,0 +1,43 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\Android_Workspace\\NSC\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw600dp-land-v13\\values-sw600dp-land-v13.xml",
+            "map": [
+                {
+                    "source": "E:\\Android_Workspace\\NSC\\app\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
+                    "from": {
+                        "startLines": "5,4,10,8,6,7,9,2",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "158,101,432,315,217,264,371,57",
+                        "endColumns": "57,55,49,54,45,49,59,40",
+                        "endOffsets": "211,152,477,365,258,309,426,93"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,17,18",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,113,169,219,274,320,861,921",
+                        "endColumns": "57,55,49,54,45,49,59,40",
+                        "endOffsets": "108,164,214,269,315,365,916,957"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\rahuls\\.gradle\\caches\\transforms-1\\files-1.1\\materialdatetimepicker-1.3.1.aar\\1e945ba6770aab5b1cff91a6dc0662b7\\res\\values-sw600dp-land-v13\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "222,274,328,390,441,492,546,600,661",
+                        "endColumns": "51,53,61,50,50,53,53,60,51",
+                        "endOffsets": "269,323,385,436,487,541,595,656,708"
+                    },
+                    "to": {
+                        "startLines": "8,9,10,11,12,13,14,15,16",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "370,422,476,538,589,640,694,748,809",
+                        "endColumns": "51,53,61,50,50,53,53,60,51",
+                        "endOffsets": "417,471,533,584,635,689,743,804,856"
+                    }
+                }
+            ]
+        }
+    ]
+}

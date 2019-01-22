@@ -1,0 +1,169 @@
+<resources>
+    <string name="app_name">NSC PHED</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="error_accessing_gplay">Error while accessing Google Play</string>
+    <string name="ftp_uri_malformed">Malformed URI</string>
+    <string name="ftp_success">Upload to %1$s successful</string>
+    <string name="ftp_failure">Failure while uploading to %1$s: %2$s</string>
+    <string name="ftp_socket_exception">Socket exception while uploading to %1$s</string>
+    <string name="ftp_io_exception">IO exception while uploading to %1$s</string>
+    <string name="ftp_login_failure">Login failure while trying to upload to %1$s</string>
+    <string name="ftp_setFileType_failure">Could not set file type to ASCII while trying to upload
+      to %1$s</string>
+    <string name="ftp_changeWorkingDirectory_failure">Could not change working directory while trying
+      to upload to %1$s</string>
+    <string name="ftp_uploading_wait">FTP Transfer to %1$s. Please wait &#8230;</string>
+    <string name="ftp_connection_refused">Connection to %1$s refused</string>
+    <string name="ftp_connection_failure">Connection to %1$s failed</string>
+    <string name="ftp_cancelled">FTP Transfer to %1$s cancelled</string>
+    <string name="ftp_fileExists_failure">File already exists at target</string>
+    <string name="help_heading_whats_new">What\'s new</string>
+    <string name="help_heading_license">License</string>
+    <string name="help_heading_usage">Usage</string>
+    <string name="help_whats_new">&#160;- READ_EXTERNAL_STORAGE required since Kitkat .</string>
+    <string name="button_add">Add</string>
+    <string name="button_change">Change</string>
+    <string name="button_website">Website</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_info">Info</string>
+    <string name="menu_pick">Pick a file for upload</string>
+    <string name="new_version">New version</string>
+    <string name="no_uris">No URIs defined.</string>
+    <string name="no_app_handling_pick_available">No app for picking files available. Install <i>OI File Manager</i> from Google Play?</string>
+    <string name="select_ftp_target">Select an FTP target for the upload</string>
+    <string name="manage_ftp_targets">Manage your FTP targets</string>
+    <!-- strings below this comment do not need translations -->
+    <string name="help_enjoy"><u>Enjoy!</u></string>
+
+
+    <string name="username">UserName</string>
+    <string name="oldpassword">OldPassword</string>
+    <string name="newpassword">NewPassword</string>
+    <string-array name="tv">
+        <item>60</item>
+        <item>100</item>
+    </string-array>
+
+
+    <string-array name="titles">
+        <item>Mr.</item>
+        <item>Mrs.</item>
+        <item>Miss</item>
+    </string-array>
+
+    <string-array name="sp_district">
+        <item>Select District</item>
+        <item>Aurangabad</item>
+        <item>Kaimur</item>
+        <item>Rohtas</item>
+    </string-array>
+
+    <string-array name="tarriff_categeory">
+        <item>DS-IID</item>
+        <item>NDS-IID(A)</item>
+        <item>NDS-IID(B)</item>
+
+    </string-array>
+
+    <string-array name="address_proof">
+        <item>Select Address Proof</item>
+        <item>Passport</item>
+        <item>Pan Card</item>
+        <item>Voter Id</item>
+        <item>Driving Licence</item>
+        <item>Gas Connection Card</item>
+        <item>Ration Card</item>
+        <item>Bill of goverment licence connection</item>
+        <item>Photo Id issues by any goverment Agency </item>
+    </string-array>
+
+    <string-array name="load">
+        <item>select</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+
+    </string-array>
+
+    <string-array name="load_nds_a">
+        <item>select</item>
+        <item>0.1</item>
+        <item>0.2</item>
+        <item>0.3</item>
+        <item>0.4</item>
+        <item>0.5</item>
+
+
+    </string-array>
+
+    <string-array name="land_rent">
+        <item>Select Land/Rent Type</item>
+        <item>Land Record</item>
+        <item>Rent Aggreement</item>
+
+    </string-array>
+
+    <string-array name="meter_type">
+        <item>Whole Current Meter</item>
+        <item>LT CT Operated</item>
+        <item>HT</item>
+    </string-array>
+
+    <string-array name="phase">
+        <item>Single Phase</item>
+        <item>LT Three Phase Domestic</item>
+        <item>LT Three Phase Commercial</item>
+        <item>HT</item>
+    </string-array>
+
+    <string-array name="bill_basis">
+        <item>KW</item>
+        <item>KVA</item>
+        <item>HP</item>
+        <item>HT</item>
+    </string-array>
+
+    <string-array name="meter_ownership">
+        <item>DF</item>
+        <item>Customer</item>
+        <item>CESU</item>
+        <item>HT</item>
+    </string-array>
+
+
+    <string-array name="meter_make">
+        <item>Select Meter Make</item>
+        <item>Genus</item>
+        <item>HPL</item>
+        <item>Secure</item>
+
+    </string-array>
+
+    <string-array name="meter_digit">
+        <item>7</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+
+    <string-array name="meter">
+        <item>metered</item>
+        <item>unmetered</item>
+
+
+    </string-array>
+    <string name="api_key">AIzaSyABbdNucbJIiMCmGyuDp1viCFJVE7hAvJg</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

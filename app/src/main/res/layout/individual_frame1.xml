@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentLeft="true"
+    android:id="@+id/relativeLayout1">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title:"
+        android:layout_marginTop="15dp"
+        android:id="@+id/textView11"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Customer First Name*:"
+        android:id="@+id/textView12"
+        android:layout_above="@+id/relativeLayout2"
+        android:layout_toRightOf="@+id/textView11"
+        android:layout_toEndOf="@+id/textView11"
+        android:layout_marginLeft="69dp"
+        android:layout_marginStart="69dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Father/Husband Name:"
+        android:id="@+id/textView13"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/relativeLayoutl"
+        android:layout_alignLeft="@+id/textView11"
+        android:layout_alignStart="@+id/textView11" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:textCursorDrawable="@drawable/cursorcolor"    android:layout_marginRight="2dp"
+        android:background="@drawable/shape"
+        android:layout_marginTop="5dp"
+        android:inputType="textCapCharacters"
+        android:layout_below="@+id/textView13"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/relativeLayout2"
+        android:layout_below="@+id/textView11"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <Spinner
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner9"
+            android:entries="@array/titles"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText1"
+            android:textCursorDrawable="@drawable/cursorcolor"    android:layout_marginRight="2dp"
+            android:background="@drawable/shape"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:inputType="textCapCharacters"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/spinner9"
+            android:layout_toEndOf="@+id/spinner9" />
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/relativeLayoutm"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerm"
+            android:text="Middle Name"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editmiddle"
+            android:textCursorDrawable="@drawable/cursorcolor"    android:layout_marginRight="2dp"
+            android:background="@drawable/shape"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:inputType="textCapCharacters"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/spinnerm"
+            android:layout_toEndOf="@+id/spinnerm" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/relativeLayoutl"
+        android:layout_below="@+id/relativeLayoutm"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerl"
+            android:text="Last Name"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editlast"
+            android:textCursorDrawable="@drawable/cursorcolor"    android:layout_marginRight="2dp"
+            android:background="@drawable/shape"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:inputType="textCapCharacters"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/spinnerl"
+            android:layout_toEndOf="@+id/spinnerl" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
+

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_marginTop="@dimen/activity_horizontal_margin"
+    android:layout_marginLeft="@dimen/activity_vertical_margin"
+    android:id="@+id/relativeLayout1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title:"
+            android:id="@+id/textView14"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/spinner10" />
+
+        <Spinner
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:id="@+id/spinner10"
+            android:entries="@array/titles"
+            android:layout_below="@+id/textView14"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signatory Name:"
+            android:id="@+id/textView15"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView14"
+            android:layout_alignParentRight="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText3"
+            android:inputType="textCapCharacters"
+            android:textCursorDrawable="@drawable/cursorcolor"    android:layout_marginRight="2dp"
+            android:background="@drawable/shape"
+            android:layout_below="@+id/textView15"
+            android:layout_toRightOf="@+id/textView14"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Designation of Signatory:"
+            android:id="@+id/textView16"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/spinner10"
+            android:layout_alignParentRight="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText4"
+            android:layout_below="@+id/textView16"
+            android:inputType="textCapCharacters"
+            android:textCursorDrawable="@drawable/cursorcolor"    android:layout_marginRight="2dp"
+            android:background="@drawable/shape"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type of Organisation:"
+            android:id="@+id/textView17"
+            android:layout_below="@+id/editText4"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText5"
+            android:layout_below="@+id/textView17"
+            android:textCursorDrawable="@drawable/cursorcolor"    android:layout_marginRight="2dp"
+            android:background="@drawable/shape"
+            android:layout_alignParentLeft="true"
+            android:inputType="textCapCharacters"
+            android:layout_alignParentRight="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview"
+        android:layout_below="@+id/editText5"
+        android:text="Name of Organisation/Corporate"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:textCursorDrawable="@drawable/cursorcolor"    android:layout_marginRight="2dp"
+        android:background="@drawable/shape"
+        android:inputType="textCapCharacters"
+        android:layout_below="@+id/textview"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        />
+
+
+</RelativeLayout>
+
+
+
+

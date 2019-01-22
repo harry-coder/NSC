@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:id="@+id/tab_ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/textViewTicket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:padding="5dp"
+                android:text="Ticket Number : "
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewTicketValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="" />
+        </TableRow>
+
+    </TableLayout>
+
+    <RelativeLayout
+        android:id="@+id/tab1_rel1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tab_ticket">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginTop="5dp">
+
+
+
+                <TableRow
+                    android:id="@+id/relativeLayout3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:padding="5dp"
+                   >
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/spinner13"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:padding="5dp"
+                        android:text="Load Unit:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/spinner13"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/textView13"
+                        android:padding="5dp"
+                        android:text="KW"
+                        android:layout_weight="1"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/relativeLayout7"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relativeLayout3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:padding="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/spinner17"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:padding="5dp"
+                        android:text="Tariff Category:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <Spinner
+                        android:id="@+id/spinner17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1"
+                        android:layout_toRightOf="@+id/textView17" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/relativeLayout_subcat"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relativeLayout7"
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp"
+                    android:layout_marginTop="2dp">
+
+                    <TextView
+                        android:id="@+id/textView_subcat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/spinner17"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:padding="5dp"
+                        android:text="Tariff Category Load   :"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <Spinner
+                        android:id="@+id/spinner_subcat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1"
+                        android:entries="@array/load"
+                        android:layout_toRightOf="@+id/textView17"
+                        />
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/relativeLayout_subcat_a"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relativeLayout3"
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp"
+                    android:layout_marginTop="2dp">
+
+                    <TextView
+                        android:id="@+id/textView_subcat_a"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/spinner17"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:padding="5dp"
+                        android:text="Tariff Category Load   :"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <Spinner
+                        android:id="@+id/spinner_subcat_a"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1"
+                        android:entries="@array/load_nds_a"
+                        android:layout_toRightOf="@+id/textView17"
+                        />
+                </TableRow>
+
+
+
+                <!--  <TableRow
+                      android:id="@+id/relativeLayout"
+                      android:layout_width="wrap_content"
+                      android:padding="5dp"
+                      android:layout_below="@+id/relativeLayout7"
+                      android:layout_height="wrap_content">
+
+                      <TextView
+                          android:id="@+id/textView8"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_alignParentLeft="true"
+                          android:layout_alignParentStart="true"
+                          android:layout_alignParentTop="true"
+                          android:padding="5dp"
+                          android:text="Connected Load:"
+                          android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                      <EditText
+                          android:id="@+id/spinner10"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:background="@drawable/shape"
+                          android:inputType="numberDecimal"
+                          android:maxLength="3"
+                          android:textCursorDrawable="@drawable/cursorcolor" />
+                  </TableRow>-->
+
+
+
+                <TableRow
+                    android:id="@+id/relativeLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:visibility="gone"
+                    android:layout_below="@+id/relativeLayout7"
+                   >
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:padding="5dp"
+                        android:text="Transformer Capacity:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <EditText
+                        android:id="@+id/spinner12"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="2dp"
+
+                        android:layout_toRightOf="@+id/textView11"
+                        android:background="@drawable/shape"
+                        android:inputType="numberDecimal"
+                        android:maxLength="6"
+                        android:textCursorDrawable="@drawable/cursorcolor" />
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/relativeLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:visibility="gone"
+                    android:layout_below="@+id/relativeLayout1"
+                   >
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:padding="5dp"
+                        android:text="Transformer Code:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <EditText
+                        android:id="@+id/spinner14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_weight="1"
+                        android:layout_marginRight="2dp"
+                        android:layout_toRightOf="@+id/textView16"
+                        android:background="@drawable/shape"
+                        android:inputType="text"
+                        android:textCursorDrawable="@drawable/cursorcolor" />
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/relativeLayout9"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relativeLayout2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:padding="5dp"
+                   >
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/spinner20"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:padding="5dp"
+                        android:text="Feeder Name:"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <Spinner
+                        android:id="@+id/spinner20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/textView18" />
+                </TableRow>
+
+
+            </TableLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/scrollView"
+            android:layout_centerHorizontal="true"
+            android:text="submit" />
+    </RelativeLayout>
+
+</RelativeLayout>

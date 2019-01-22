@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/innerpage_body">
+    <ScrollView
+        style="@style/innerpage_body_scroll">
+        <LinearLayout
+            style="@style/innerpage_scrollin">
+            <LinearLayout
+                style="@style/innerpage_head">
+                <ImageView
+                    android:src="@drawable/ico_ticket"
+                    style="@style/innerpage_headico"/>
+                <feedback.mpnsc.CustomTextViewThin
+                    style="@style/innerpage_headtitle"
+                    android:text="New Ticket"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/innerpage_content">
+                <LinearLayout
+                    android:id="@+id/linear1"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:text="IBC*"
+                        style="@style/label_title" />
+
+                    <Spinner
+                        android:id="@+id/division_spinner"
+                        android:entries="@array/tv"
+                        style="@style/spinner_gen"></Spinner>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear_subdivision"
+                    android:visibility="gone"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="SubDivision*"
+                        android:id="@+id/tv_subdivision"
+                        style="@style/label_title"/>
+
+                    <Spinner
+                        android:id="@+id/spn_subdivion"
+                        style="@style/spinner_gen"></Spinner>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear_section"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="BSC*"
+                        android:id="@+id/tv_section"
+                        style="@style/label_title"/>
+
+                    <Spinner
+                        android:id="@+id/section"
+                        style="@style/spinner_gen"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear_name"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Name*"
+                        android:id="@+id/tv_name"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_name"
+                        android:hint="Enter Customer Name"
+                        android:maxLength="100"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear_father_name"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Father's/Husband's Name*"
+                        android:id="@+id/tv_father"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_father"
+                        android:maxLength="50"
+                        android:hint="Enter Father/Husband Name"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear_address"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Address*"
+                        android:id="@+id/tv_address"
+                        style="@style/label_title"/>
+                    <EditText
+                        android:id="@+id/et_address"
+                        android:hint="Enter Address"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear_landmark"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Landmark*"
+                        android:id="@+id/tv_landmark"
+                        style="@style/label_title"/>
+                    <EditText
+                        android:id="@+id/et_landmark"
+                        android:hint="Enter Landmark"
+
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+           <LinearLayout
+                    android:id="@+id/linear12"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Mobile*"
+                        android:id="@+id/tv_mobile"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_mobile"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:hint="Enter Mobile No."
+                        android:digits="0123456789"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear_button"
+                    style="@style/linear_label_holder">
+
+                    <Button
+                        android:text="Submit"
+                        android:id="@+id/tv_button"
+                        style="@style/btn_gen"
+                        android:layout_gravity="center_horizontal"/>
+
+
+                </LinearLayout>
+
+
+
+
+                <TextView
+                    style="@style/msg_yellow"
+                    android:gravity="center"
+                    android:text="* Enter all Mandetory Field"
+                    android:id="@+id/textid"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

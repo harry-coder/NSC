@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/innerpage_body">
+    <ScrollView
+        style="@style/innerpage_body_scroll">
+        <LinearLayout
+            style="@style/innerpage_scrollin">
+            <LinearLayout
+                style="@style/innerpage_head">
+                <ImageView
+                    android:id="@+id/im_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back_icon"
+                    android:layout_gravity="top"
+                    android:layout_marginStart="15dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+
+                    android:layout_marginLeft="15dp" />
+                <ImageView
+                    android:src="@drawable/ico_update"
+                    style="@style/innerpage_headico"/>
+                <feedback.mpnsc.CustomTextViewThin
+                    style="@style/innerpage_headtitle"
+                    android:text="Customer Registration Form "/>
+
+            </LinearLayout>
+            <LinearLayout
+                style="@style/innerpage_content">
+
+
+                <TableLayout
+                    android:id="@+id/tab_ticket"
+                    android:layout_below="@+id/tab_reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp">
+
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/textViewTicketValue"
+                            android:text="Ticket Number : "
+                            style="@style/label_title"/>
+
+                        <TextView
+                            android:id="@+id/textViewTicket"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:padding="5dp"
+                            android:text=""
+                            android:textSize="22dp"
+                            android:textColor="#FFF"/>
+
+
+                    </TableRow>
+
+                </TableLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_first"
+                    android:orientation="horizontal"
+                    style="@style/linear_label_holder">
+
+                   <!-- <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="First Name"
+                        android:id="@+id/tv_first"
+                        android:layout_weight="1"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />-->
+                    <Spinner
+                        style="@style/spinner_gen"
+                        android:layout_width="80dp"
+                        android:layout_marginRight="5dp"
+                        android:id="@+id/spinner9"
+                        android:entries="@array/titles"
+                        />
+
+                    <EditText
+                        android:id="@+id/editText1"
+                        android:maxLength="50"
+                        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"
+                        android:layout_width="match_parent"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_middle"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Middle Name"
+                        android:id="@+id/tv_middle"
+                        android:visibility="gone"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/editmiddle"
+                        android:maxLength="35"
+                        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        android:inputType="textCapCharacters"
+                        android:visibility="gone"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_last"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Last Name"
+                        android:id="@+id/tv_last"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/editlast"
+                        android:maxLength="50"
+                        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_father"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Father's/Husband's Name*"
+                        android:id="@+id/tv_father"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/editText2"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear1"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Plot/Build Number"
+                        android:id="@+id/tv_plotno"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_plotno"
+                        android:maxLength="35"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_houseno"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="House/Flat Number"
+                        android:id="@+id/tv_houseno"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_houseno"
+                        android:maxLength="35"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear2"
+                    android:visibility="gone"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="House/Build Name"
+                        android:id="@+id/tv_buildng_no"
+                        android:visibility="gone"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_buildng_name"
+                        android:maxLength="50"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_holding"
+                    android:visibility="gone"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Holding No/Khata No"
+                        android:id="@+id/tv_holding_no"
+                        android:visibility="gone"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_holding_khata_no"
+                        android:maxLength="35"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_ward_no"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Ward No/Khasra No"
+                        android:id="@+id/tv_ward_no"
+                        android:visibility="gone"
+                        style="@style/label_title"/>
+
+
+                    <EditText
+                        android:id="@+id/et_ward_no"
+                        android:maxLength="35"
+                        android:visibility="gone"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear3"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Street/Road/Area"
+                        android:id="@+id/tv_street"
+                        style="@style/label_title"/>
+
+
+                    <EditText
+                        android:id="@+id/et_street"
+                        android:maxLength="35"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear7"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Block*"
+                        android:id="@+id/tv_block"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_block"
+                        android:maxLength="40"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_panchayat"
+                    android:visibility="gone"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:visibility="gone"
+                        android:text="Panchayat"
+                        android:id="@+id/tv_panchayat"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_gp"
+                        android:maxLength="40"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_address"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Address*"
+                        android:id="@+id/tv_address"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_address"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear10"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Pin No*"
+                        android:id="@+id/tv_pin"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_pin"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear_landmark"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Landmark*:"
+                        android:id="@+id/tv_landmark"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_landmark"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear4"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="City/Town/Village*"
+                        android:id="@+id/tv_city"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_city"
+                        android:maxLength="40"
+                        android:inputType="textCapCharacters"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear5"
+                    android:visibility="gone"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="District*"
+                        android:id="@+id/tv_district"
+                        style="@style/label_title"/>
+
+                    <Spinner
+                        android:id="@+id/et_district"
+                        android:entries="@array/sp_district"
+                        style="@style/spinner_gen"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear11"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Email id"
+                        android:id="@+id/tv_email_id"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_email_id"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="35"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear12"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Mobile*"
+                        android:id="@+id/tv_mobile"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_mobile"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:digits="0123456789"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear13"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:text="Landline"
+                        android:id="@+id/tv_landline"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_landline"
+                        android:maxLength="11"
+                        android:inputType="number"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Billing Address is same as Current Address"
+                    android:layout_marginTop="@dimen/margin_between"
+                    android:id="@+id/checkBox"
+                    android:layout_below="@+id/linear13"/>
+
+                <TextView
+                    android:text="* Enter all Mandetory Field"
+                    android:id="@+id/textid"
+                    style="@style/msg_yellow"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp"/>
+
+             <!--   <Button
+                    android:id="@+id/btn_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Submit"
+                    android:layout_below="@+id/textid"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignRight="@+id/textid"
+                    android:layout_alignEnd="@+id/textid" />-->
+
+
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    android:text="Next"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/btn_gen"/>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

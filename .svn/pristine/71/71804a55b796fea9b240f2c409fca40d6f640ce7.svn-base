@@ -1,0 +1,267 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+       <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+    </style>
+    <style name="login_body">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:weightSum">10</item>
+    </style>
+    <style name="bnr_shade">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">300dp</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:background">@drawable/shade_of_bg</item>
+    </style>
+    <style name="banner_main">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+    <style name="banner_img">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:src">@drawable/bg_horse_main</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+    <style name="logo_main">
+        <item name="android:layout_width">320dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:src">@drawable/logo_dlonboard_main</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_gravity">center_horizontal|bottom</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+    <style name="login_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:minHeight">300dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/bg_login_container</item>
+    </style>
+    <style name="login_containerin">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginLeft">40dp</item>
+        <item name="android:layout_marginRight">40dp</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+    </style>
+    <style name="holder_edtext">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+    <style name="input_gen">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:background">@drawable/bg_input_gen</item>
+        <item name="android:textColorHint">#ddd</item>
+    </style>
+    <style name="spinner_gen">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:background">@drawable/bg_input_gen</item>
+
+    </style>
+    <style name="spinermenus_gen">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textSize">13dp</item>
+    </style>
+    <style name="btn_gen">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:paddingRight">40dp</item>
+        <item name="android:paddingLeft">40dp</item>
+        <item name="android:background">@drawable/bg_btn_gen</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@drawable/button_text_color</item>
+    </style>
+    <style name="home_tab_box">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:weightSum">9</item>
+        <item name="android:background">@drawable/bg_hometab_container</item>
+        <item name="android:layout_marginRight">-2dp</item>
+        <item name="android:layout_marginBottom">-2dp</item>
+    </style>
+    <style name="tabsectionrow">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="tabsframe">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginRight">0.5dp</item>
+        <item name="android:layout_marginBottom">0.5dp</item>
+    </style>
+    <style name="tabslin">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:weightSum">3</item>
+        <item name="android:background">#22000000</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+    <style name="tabsinview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="tabsico">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">0.8</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+    <style name="tabsico_img">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+    <style name="tabslabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1.2</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">top|center_horizontal</item>
+    </style>
+    <style name="hmBtn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">-0.5dp</item>
+        <item name="android:layout_marginTop">-0.5dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:background">@drawable/bg_tab_frame</item>
+    </style>
+
+    <style name="innerpage_body">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/bg_innerpage_body</item>
+    </style>
+    <style name="innerpage_body_scroll">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="innerpage_scrollin">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="innerpage_head">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">180dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">40dp</item>
+        <item name="android:background">@drawable/bg_inner_head</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+    <style name="innerpage_headico">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+    <style name="innerpage_headtitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+    <style name="innerpage_headsubtitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+    <style name="innerpage_content">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="linear_label_holder">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="label_title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:paddingBottom">0dp</item>
+    </style>
+    <style name="msg_yellow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+       <!-- <item name="android:textColor">#FFE400</item>-->
+        <item name="android:textColor">#FF0000</item>
+    </style>
+
+    <style name="text_ntwrk">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+    <style name="linear_phtobtn_row">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+    <style name="linear_phtobtn_holder">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="photo_btn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+        <item name="android:background">@drawable/bg_photo_btn</item>
+
+    </style>
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">#422970</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:background">#997cd0</item>
+    </style>
+</resources>

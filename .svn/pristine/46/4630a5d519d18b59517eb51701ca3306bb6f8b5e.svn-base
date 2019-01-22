@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">20dp</dimen>
+    <dimen name="activity_vertical_margin">20dp</dimen>
+    <dimen name="button_top_margin">100dp</dimen>
+    <dimen name="button_vertical_margin">250dp</dimen>
+    <dimen name="margin_between">10dp</dimen>
+    <dimen name="margin_from_button">60dp</dimen>
+    <dimen name="mdtp_ampm_label_size">16sp</dimen>
+    <dimen name="mdtp_ampm_left_padding">6dip</dimen>
+    <dimen name="mdtp_date_picker_header_height">45dp</dimen>
+    <dimen name="mdtp_footer_height">48dip</dimen>
+    <dimen name="mdtp_header_height">96dip</dimen>
+    <dimen name="mdtp_left_side_width">400dip</dimen>
+    <dimen name="mdtp_separator_padding">5dip</dimen>
+    <dimen name="mdtp_time_label_right_padding">16sp</dimen>
+    <dimen name="mdtp_time_label_size">64sp</dimen>
+    <dimen name="new_meter_horizontal_margin">450dp</dimen>
+    <dimen name="text_size">50dp</dimen>
+</resources>

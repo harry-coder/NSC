@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10">
+    <FrameLayout
+        style="@style/banner_main"
+        android:layout_weight="4.5">
+        <ImageView
+            style="@style/banner_img"
+            />
+        <LinearLayout
+            style="@style/bnr_shade"></LinearLayout>
+        <ImageView
+            style="@style/logo_main"
+            />
+    </FrameLayout>
+    <LinearLayout
+        android:layout_weight="5.5"
+        style="@style/home_tab_box">
+
+        <LinearLayout
+            style="@style/tabsectionrow"
+            android:layout_weight="3"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <FrameLayout
+                android:layout_weight="1"
+                style="@style/tabsframe">
+                <LinearLayout
+                    style="@style/tabslin">
+                    <View
+                        style="@style/tabsinview"/>
+                    <ImageView
+                        style="@style/tabsico_img"
+                        android:src="@drawable/ico_ticket" />
+                    <feedback.mpnsc.CustomTextView
+                        android:text="CREATE NEW TICKET NUMBER"
+                        style="@style/tabslabel"/>
+                </LinearLayout>
+                <ImageButton
+                    android:id="@+id/btn_ticket"
+                    style="@style/hmBtn"/>
+
+            </FrameLayout>
+            <FrameLayout
+                android:layout_weight="1"
+                style="@style/tabsframe">
+                <LinearLayout
+                    style="@style/tabslin">
+                    <View
+                        style="@style/tabsinview"/>
+                    <ImageView
+                        style="@style/tabsico_img"
+                        android:src="@drawable/ico_update" />
+                    <feedback.mpnsc.CustomTextView
+                        android:text="UPDATE APPLICATION ENTRY"
+                        style="@style/tabslabel"/>
+                </LinearLayout>
+                <ImageButton
+                    android:id="@+id/button3"
+                    style="@style/hmBtn"/>
+
+            </FrameLayout>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/tabsectionrow"
+            android:layout_weight="3"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <FrameLayout
+                android:layout_weight="1"
+                style="@style/tabsframe">
+                <LinearLayout
+                    style="@style/tabslin">
+                    <View
+                        style="@style/tabsinview"/>
+                    <ImageView
+                        style="@style/tabsico_img"
+                        android:src="@drawable/ico_feasibility" />
+                    <feedback.mpnsc.CustomTextView
+                        android:text="FEASIBILITY"
+                        style="@style/tabslabel"/>
+                </LinearLayout>
+                <ImageButton
+                    android:id="@+id/btn_feasibility"
+                    style="@style/hmBtn"/>
+
+            </FrameLayout>
+            <FrameLayout
+                android:layout_weight="1"
+                style="@style/tabsframe">
+                <LinearLayout
+                    style="@style/tabslin">
+                    <View
+                        style="@style/tabsinview"/>
+                    <ImageView
+                        style="@style/tabsico_img"
+                        android:src="@drawable/ico_meter" />
+                    <feedback.mpnsc.CustomTextView
+                        android:text="METER DETAIL ENTRY"
+                        style="@style/tabslabel"/>
+                </LinearLayout>
+                <ImageButton
+                    android:id="@+id/button6"
+                    style="@style/hmBtn"/>
+            </FrameLayout>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/tabsectionrow"
+            android:layout_weight="3"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <FrameLayout
+                android:layout_weight="1"
+                style="@style/tabsframe">
+                <LinearLayout
+                    style="@style/tabslin">
+                    <View
+                        style="@style/tabsinview"/>
+                    <ImageView
+                        style="@style/tabsico_img"
+                        android:src="@drawable/ico_ticket_det" />
+                    <feedback.mpnsc.CustomTextView
+                        android:text="TICKET DETAILS"
+                        style="@style/tabslabel"/>
+                </LinearLayout>
+                <ImageButton
+                    android:id="@+id/button5"
+                    style="@style/hmBtn"/>
+            </FrameLayout>
+            <FrameLayout
+                android:layout_weight="1"
+                style="@style/tabsframe">
+                <LinearLayout
+                    style="@style/tabslin">
+                    <View
+                        style="@style/tabsinview"/>
+                    <ImageView
+                        style="@style/tabsico_img"
+                        android:src="@drawable/ico_logout" />
+                    <feedback.mpnsc.CustomTextView
+                        android:text="QUIT"
+                        style="@style/tabslabel"/>
+                </LinearLayout>
+                <ImageButton
+                    android:id="@+id/btn_quit"
+                    style="@style/hmBtn"/>
+            </FrameLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
