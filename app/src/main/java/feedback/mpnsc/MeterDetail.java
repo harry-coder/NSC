@@ -27,6 +27,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +54,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import feedback.mpnsc.CustomClasses.ConnectivityCheck;
+import feedback.mpnsc.exisitingconsumer.Existing_tab1;
+
 /**
  * Created by nitinb on 23-06-2015.
  */
@@ -57,7 +64,7 @@ public class MeterDetail extends Activity implements
         TimePickerDialog.OnTimeSetListener,
         DatePickerDialog.OnDateSetListener {
 
-    EditText meter_serial_no, reading, ed_seal_number, ed_seal_number1, ed_seal_number2, ed_seal_number3, ed_seal_number4, ed_seal_number5, et_installerName;
+    EditText reading, ed_seal_number, ed_seal_number1, ed_seal_number2, ed_seal_number3, ed_seal_number4, ed_seal_number5, et_installerName;
     Spinner manufacture_code, meter_type, phase, bill_basis,
             meter_digit, ownership, metered, meter_make;
     TextView date, tv_lat_home, tv_long_home, tv_lat_pole, tv_long_pole;
@@ -80,7 +87,7 @@ public class MeterDetail extends Activity implements
     ConnectionDetector connectionDetector;
     SQLiteMasterTableAdapter sqLiteMasterTableAdapter;
     SessionManager sessionManager;
-    SpannableString sp_meter_serial, sp_sealno1, sp_sealno2, sp_makemter, sp_meter_installed, sp_reading;
+    SpannableString sp_meter_serial, sp_sealno1, sp_sealno2, sp_makemter, sp_meter_installed, sp_reading, sp_IR, sp_preload, sp_meterInstaller;
     SQLiteAdapter sqLiteAdapter;
 
     Cursor cursor_manufacturer_code, cursor_meter_type, cursor_meter_phase, cursor_bill_basis,
@@ -91,6 +98,26 @@ public class MeterDetail extends Activity implements
 
     ArrayAdapter <String> adapter_manufacturer_code, adapter_meter_type, adapter_meter_phase, adapter_bill_basis,
             adapter_digit, adapter_ownership, adapter_metered;
+
+
+    String address, mobile, name, division;
+
+    Spinner meter_serial_no;
+
+    static String ticket;
+
+    private ConnectivityCheck connectivityCheck;
+
+    RadioGroup rg_meterType;
+    RadioButton rb_prepaid, rb_postpaid;
+    LinearLayout linearLayoutIR, linearLayoutPreload;
+    TextView tv_IR, tv_preload;
+    EditText et_preload, et_IR;
+    String meterIR, meterPreload, meterType;
+
+    ImageView im_back;
+
+    TextView tv_installerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +130,17 @@ public class MeterDetail extends Activity implements
         sessionManager = new SessionManager ( MeterDetail.this );
         sqLiteMasterTableAdapter = new SQLiteMasterTableAdapter ( MeterDetail.this );
         connectionDetector = new ConnectionDetector ( MeterDetail.this );
+
+        ticket = getIntent ( ).getStringExtra ( "ticket" );
+        address = getIntent ( ).getStringExtra ( "address" );
+        mobile = getIntent ( ).getStringExtra ( "mobile" );
+        name = getIntent ( ).getStringExtra ( "name" );
+        division = getIntent ( ).getStringExtra ( "division" );
+
+        tv_installerName = findViewById ( R.id.tv_meterInstaller );
+
+        im_back = findViewById ( R.id.im_back );
+        connectivityCheck = new ConnectivityCheck ( this );
 
        /* home_lat= Double.parseDouble(tv_lat_home.getText().toString().trim()) ;
         home_long= Double.parseDouble(tv_long_home.getText().toString().trim()) ;
@@ -192,6 +230,17 @@ public class MeterDetail extends Activity implements
         tv_subdivision = findViewById ( R.id.tv_subdivision );
         tv_section = findViewById ( R.id.tv_section );
         tv_route = findViewById ( R.id.tv_route );
+        tv_IR = findViewById ( R.id.tv_IR );
+        tv_preload = findViewById ( R.id.tv_preload );
+
+        et_preload = findViewById ( R.id.et_preload );
+        et_IR = findViewById ( R.id.et_IR );
+        et_preload = findViewById ( R.id.et_preload );
+
+
+        sp_IR = new SpannableString ( tv_IR.getText ( ).toString ( ) );
+        sp_preload = new SpannableString ( tv_preload.getText ( ).toString ( ) );
+        sp_meterInstaller =  new SpannableString ( tv_installerName.getText ( ).toString ( ) );
 
         sp_meter_serial = new SpannableString ( tv_serial.getText ( ).toString ( ) );
         sp_sealno1 = new SpannableString ( tv_seal1.getText ( ).toString ( ) );
@@ -199,19 +248,59 @@ public class MeterDetail extends Activity implements
         sp_makemter = new SpannableString ( tv_mm.getText ( ).toString ( ) );
         sp_meter_installed = new SpannableString ( tv_date.getText ( ).toString ( ) );
         sp_reading = new SpannableString ( tv_reading.getText ( ).toString ( ) );
+
+        sp_IR.setSpan ( new ForegroundColorSpan ( Color.RED ), 15, 16, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+        sp_preload.setSpan ( new ForegroundColorSpan ( Color.RED ), 20, 21, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
         sp_meter_serial.setSpan ( new ForegroundColorSpan ( Color.RED ), 19, 20, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
         sp_sealno1.setSpan ( new ForegroundColorSpan ( Color.RED ), 12, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
         sp_sealno2.setSpan ( new ForegroundColorSpan ( Color.RED ), 12, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
         sp_makemter.setSpan ( new ForegroundColorSpan ( Color.RED ), 10, 11, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
         sp_meter_installed.setSpan ( new ForegroundColorSpan ( Color.RED ), 20, 21, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
         sp_reading.setSpan ( new ForegroundColorSpan ( Color.RED ), 25, 26, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+        sp_meterInstaller.setSpan ( new ForegroundColorSpan ( Color.RED ), 20, 21, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+
+
         tv_serial.setText ( sp_meter_serial );
         tv_seal1.setText ( sp_sealno1 );
         tv_seal2.setText ( sp_sealno2 );
         tv_mm.setText ( sp_makemter );
         tv_date.setText ( sp_meter_installed );
         tv_reading.setText ( sp_reading );
+        tv_installerName.setText ( sp_meterInstaller );
 
+        tv_IR.setText ( sp_IR );
+        tv_preload.setText ( sp_preload );
+
+        linearLayoutIR = findViewById ( R.id.linearLayoutIR );
+        linearLayoutPreload = findViewById ( R.id.linearLayoutPreLoad );
+        rg_meterType = findViewById ( R.id.rg_meterType );
+        rb_prepaid = findViewById ( R.id.rb_prepaid );
+        rb_postpaid = findViewById ( R.id.rb_postpaid );
+
+
+        rg_meterType.setOnCheckedChangeListener ( new RadioGroup.OnCheckedChangeListener ( ) {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                switch (i) {
+
+                    case R.id.rb_postpaid: {
+
+                        linearLayoutIR.setVisibility ( View.VISIBLE );
+                        linearLayoutPreload.setVisibility ( View.GONE );
+                        meterType = "postpaid";
+                        break;
+                    }
+                    case R.id.rb_prepaid: {
+
+                        linearLayoutIR.setVisibility ( View.GONE );
+                        linearLayoutPreload.setVisibility ( View.VISIBLE );
+                        meterType = "prepaid";
+                        break;
+                    }
+                }
+            }
+        } );
 
         meter_make.setOnItemSelectedListener ( new AdapterView.OnItemSelectedListener ( ) {
             @Override
@@ -235,10 +324,11 @@ public class MeterDetail extends Activity implements
 
 
         //......set value in textview.......//
-        tv_ticket_no.setText ( DataHolderClass.getInstance ( ).get_new_meter_ticket_no ( ) );
-        tv_consumer_name.setText ( DataHolderClass.getInstance ( ).get_new_meter_cons_name ( ) );
-        tv_consumer_number.setText ( DataHolderClass.getInstance ( ).getStr_consumer_number ( ) );
-        tv_consumer_add.setText ( DataHolderClass.getInstance ( ).get_new_meter_cons_add ( ) );
+        tv_ticket_no.setText ( ticket );
+        tv_consumer_name.setText ( name );
+        tv_consumer_number.setText ( mobile );
+        tv_consumer_add.setText ( address );
+        tv_division.setText ( division );
        /* Log.e("ticket",DataHolderClass.getInstance().get_new_meter_ticket_no());
         Log.e("tv_consumer_name",DataHolderClass.getInstance().get_new_meter_cons_name());
         Log.e("tv_consumer_add",DataHolderClass.getInstance().get_new_meter_cons_add());*/
@@ -261,7 +351,7 @@ public class MeterDetail extends Activity implements
         sqLiteMasterTableAdapter.openToWrite ( );
         new Value_Spinner ( MeterDetail.this ).execute ( );
 
-        meter_serial_no.addTextChangedListener ( new TextWatcher ( ) {
+       /* meter_serial_no.addTextChangedListener ( new TextWatcher ( ) {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -276,8 +366,8 @@ public class MeterDetail extends Activity implements
             public void afterTextChanged(Editable editable) {
                 meter_serial_no.setBackgroundColor ( getResources ( ).getColor ( R.color.themecolor ) );
             }
-        } );
-        ed_seal_number.addTextChangedListener ( new TextWatcher ( ) {
+        } );*/
+       /* ed_seal_number.addTextChangedListener ( new TextWatcher ( ) {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -325,7 +415,7 @@ public class MeterDetail extends Activity implements
                 reading.setBackgroundColor ( getResources ( ).getColor ( R.color.themecolor ) );
             }
         } );
-
+*/
 
         submit.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
@@ -427,6 +517,14 @@ public class MeterDetail extends Activity implements
             }
         } );
 
+        im_back.setOnClickListener ( new View.OnClickListener ( ) {
+            @Override
+            public void onClick(View view) {
+
+                ShowAlertonBack ( );
+            }
+        } );
+
     }
 
 
@@ -437,9 +535,8 @@ public class MeterDetail extends Activity implements
         DataHolderClass.getInstance ( ).setMeterInstaller ( meterInstaller );
 
 
-        str_meter_no = meter_serial_no.getText ( ).toString ( ).trim ( );
+        str_meter_no = meter_serial_no.getSelectedItem ( ).toString ( ).trim ( );
         DataHolderClass.getInstance ( ).setStr_meter_no ( str_meter_no );
-
         str_date = date.getText ( ).toString ( ).trim ( );
         DataHolderClass.getInstance ( ).setStr_date ( str_date );
         str_reading = reading.getText ( ).toString ( ).trim ( );
@@ -483,29 +580,43 @@ public class MeterDetail extends Activity implements
 
         getValue ( );
 
+/*
+        boolean status=linearLayoutIR.getVisibility ()==View.VISIBLE;
+
+        System.out.println ("Visibility for IR "+status);
+*/
+
+
         if (home_lat == 0.0 || home_long == 0.0 || pole_lat == 0.0 || pole_long == 0.0) {
             Toast.makeText ( getApplicationContext ( ), "Please select the location", Toast.LENGTH_SHORT ).show ( );
             return false;
 
-        } else if (meter_serial_no.getText ( ).toString ( ).length ( ) == 0) {
-            meter_serial_no.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+        } else if (meter_serial_no.getSelectedItem ( ).toString ( ).length ( ) == 0) {
+            // meter_serial_no.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
             meter_serial_no.requestFocus ( );
-            meter_serial_no.setError ( "Meter Serial No. Required" );
+            // meter_serial_no.setError ( "Meter Serial No. Required" );
+            return false;
+        } else if (TextUtils.isEmpty ( meterInstaller )) {
+            // meter_serial_no.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+
+            et_installerName.setError ( "Field Required" );
+            et_installerName.requestFocus ( );
+            // meter_serial_no.setError ( "Meter Serial No. Required" );
             return false;
         } else if (ed_seal_number.getText ( ).toString ( ).length ( ) == 0) {
-            ed_seal_number.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+           // ed_seal_number.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
             ed_seal_number.requestFocus ( );
             ed_seal_number.setError ( "Seal Number Req." );
             return false;
         } else if (ed_seal_number1.getText ( ).toString ( ).length ( ) == 0) {
-            ed_seal_number1.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+            //ed_seal_number1.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
             ed_seal_number1.requestFocus ( );
             ed_seal_number1.setError ( "Seal Number Req." );
             return false;
 
         } else if (meter_make.getSelectedItem ( ).toString ( ).trim ( ).equals ( "Select Meter Make" )) {
             meter_make.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
-            //Toast.makeText(getApplicationContext(), "Select Meter Make* ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Select Meter Make* ", Toast.LENGTH_SHORT).show();
             return false;
 
         } else if (TextUtils.isEmpty ( str_date )) {
@@ -524,21 +635,35 @@ public class MeterDetail extends Activity implements
             ed_seal_number.requestFocus ( );
             return false;
 
+        } else if (TextUtils.isEmpty ( meterType )) {
+            rg_meterType.requestFocus ( );
+            Toast.makeText ( MeterDetail.this, "Please Select Meter Type", Toast.LENGTH_LONG ).show ( );
+            return false;
+        } else if (linearLayoutPreload.getVisibility ( ) == View.VISIBLE && TextUtils.isEmpty ( meterPreload )) {
+            et_preload.requestFocus ( );
+            et_preload.setError ( "Preload Required" );
+            return false;
+        } else if (linearLayoutIR.getVisibility ( ) == View.VISIBLE && TextUtils.isEmpty ( meterIR )) {
+            et_IR.requestFocus ( );
+            et_IR.setError ( "IR Required" );
+            return false;
         }
-        else if (str_meter_no.equalsIgnoreCase ( str_seal_number)) {
+
+
+
+
+        /*else if (str_meter_no.equalsIgnoreCase ( str_seal_number )) {
+            meter_serial_no.setError ( "Duplicate Meter No." );
+            meter_serial_no.requestFocus ( );
+            return false;
+
+        } else if (str_meter_no.equalsIgnoreCase ( str_seal_number1 )) {
             meter_serial_no.setError ( "Duplicate Meter No." );
             meter_serial_no.requestFocus ( );
             return false;
 
         }
-        else if (str_meter_no.equalsIgnoreCase ( str_seal_number1 )) {
-            meter_serial_no.setError ( "Duplicate Meter No." );
-            meter_serial_no.requestFocus ( );
-            return false;
-
-        }
-
-
+*/
         return true;
     }
 
@@ -556,7 +681,8 @@ public class MeterDetail extends Activity implements
                 builder.setTitle ( "Are you sure to go back:" );
                 builder.setPositiveButton ( "YES", new DialogInterface.OnClickListener ( ) {
                     public void onClick(DialogInterface dialog, int id) {
-                        startActivity ( new Intent ( MeterDetail.this, SearchTicket.class ) );
+                        Intent intent = new Intent ( MeterDetail.this, Existing_tab1.class );
+                        intent.putExtra ( "Meter", "Meter Installation" );
                         finish ( );
                     }
                 } );
@@ -631,15 +757,20 @@ public class MeterDetail extends Activity implements
     }
 
     public void getValue() {
-        str_meter_no = meter_serial_no.getText ( ).toString ( ).trim ( );
+        // str_meter_no = meter_serial_no.getText ( ).toString ( ).trim ( );
+
+        meterInstaller = et_installerName.getText ( ).toString ( ).trim ( );
+
         str_date = date.getText ( ).toString ( ).trim ( );
         str_reading = reading.getText ( ).toString ( ).trim ( );
+
         str_seal_number = ed_seal_number.getText ( ).toString ( ).trim ( );
         str_seal_number1 = ed_seal_number1.getText ( ).toString ( ).trim ( );
         str_seal_number2 = ed_seal_number2.getText ( ).toString ( ).trim ( );
         str_seal_number3 = ed_seal_number3.getText ( ).toString ( ).trim ( );
         str_seal_number4 = ed_seal_number4.getText ( ).toString ( ).trim ( );
         str_seal_number5 = ed_seal_number5.getText ( ).toString ( ).trim ( );
+
         str_meter_type = meter_type.getSelectedItem ( ).toString ( ).trim ( );
         str_meter_phase = phase.getSelectedItem ( ).toString ( ).trim ( );
         str_meter_digit = meter_digit.getSelectedItem ( ).toString ( ).trim ( );
@@ -651,6 +782,8 @@ public class MeterDetail extends Activity implements
         pole_lat = Double.parseDouble ( tv_lat_pole.getText ( ).toString ( ).trim ( ) );
         pole_long = Double.parseDouble ( tv_long_pole.getText ( ).toString ( ).trim ( ) );
 
+        meterIR = et_IR.getText ( ).toString ( );
+        meterPreload = et_preload.getText ( ).toString ( );
 
         Log.e ( "str_meter_no", "" + str_meter_no );
         Log.e ( "str_date", "" + str_date );
@@ -856,8 +989,7 @@ public class MeterDetail extends Activity implements
             }*/
 
 
-                date.setText ( date_value );
-
+            date.setText ( date_value );
 
 
         } catch (ParseException e1) {

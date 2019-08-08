@@ -5,6 +5,7 @@
     >
 
     <ScrollView
+        android:id="@+id/scrollView"
         style="@style/innerpage_body_scroll"
         android:fitsSystemWindows="true"
         >
@@ -99,12 +100,43 @@
                     <TextView
                         android:id="@+id/tv_name"
                         style="@style/label_title"
-                        android:text="Name*" />
+                        android:text="First Name*" />
 
                     <EditText
                         android:id="@+id/et_name"
                         style="@style/input_gen"
                         android:hint="Enter Customer Name"
+                        android:inputType="textCapCharacters"
+                        android:maxLength="100" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear_middlename"
+                    style="@style/linear_label_holder">
+                    <TextView
+                        android:id="@+id/tv_middleName"
+                        style="@style/label_title"
+                        android:text="Middle Name" />
+
+                    <EditText
+                        android:id="@+id/et_middleName"
+                        style="@style/input_gen"
+                        android:hint="Enter Middle Name"
+                        android:inputType="textCapCharacters"
+                        android:maxLength="100" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear_lastname"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:id="@+id/tv_lastName"
+                        style="@style/label_title"
+                        android:text="Last Name" />
+
+                    <EditText
+                        android:id="@+id/et_lastName"
+                        style="@style/input_gen"
+                        android:hint="Enter Last Name"
                         android:inputType="textCapCharacters"
                         android:maxLength="100" />
                 </LinearLayout>
@@ -135,10 +167,40 @@
                     <TextView
                         android:id="@+id/tv_address"
                         style="@style/label_title"
-                        android:text="Address*" />
+                        android:text="Address-1*" />
 
                     <EditText
                         android:id="@+id/et_address"
+                        style="@style/input_gen"
+                        android:hint="Enter Address"
+                        android:inputType="textCapCharacters" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear_address2"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:id="@+id/tv_address2"
+                        style="@style/label_title"
+                        android:text="Address-2" />
+
+                    <EditText
+                        android:id="@+id/et_address2"
+                        style="@style/input_gen"
+                        android:hint="Enter Address"
+                        android:inputType="textCapCharacters" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear_address3"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:id="@+id/tv_address3"
+                        style="@style/label_title"
+                        android:text="Address-3" />
+
+                    <EditText
+                        android:id="@+id/et_address3"
                         style="@style/input_gen"
                         android:hint="Enter Address"
                         android:inputType="textCapCharacters" />
@@ -147,6 +209,7 @@
 
                 <LinearLayout
                     android:id="@+id/linear_landmark"
+                    android:visibility="gone"
                     style="@style/linear_label_holder">
 
                     <TextView

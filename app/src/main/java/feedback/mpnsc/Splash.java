@@ -134,7 +134,9 @@ public class Splash extends AppCompatActivity {
                 saveinDIVISION ( );
                 saveinSECTION ( );
                 //saveinRoute();
+
                 saveinTARIFF ( );
+
                 //saveinSUBDIVISION();
                 //saveinFEEDER();
                 // saveinDEPARTMENT();
@@ -143,6 +145,8 @@ public class Splash extends AppCompatActivity {
                 Log.e ( "log_tag", "Error in http connection " + e.toString ( ) );
 
             }
+
+            System.out.println ("This is the response "+response );
             return response;
         }
 
@@ -151,13 +155,21 @@ public class Splash extends AppCompatActivity {
             super.onPostExecute ( result );
             pd.dismiss ( );
             pd.hide ( );
-            if (returnDivision  && returnSection && returnTariff) {
+
+            System.out.println ("Division "+returnDivision );
+            System.out.println ("Division "+returnSection );
+            System.out.println ("Division "+returnTariff );
+
+           // if (returnDivision  && returnSection && returnTariff) {
+            if (returnDivision  && returnSection&&returnTariff ) {
+
                 notification ( R.drawable.notification_success, success );
                 sessionManager.download_completed ( );
                 Intent intent = new Intent ( Splash.this, Login.class );
                 startActivity ( intent );
                 finish ( );
             } else {
+                System.out.println ("This is failed now" );
                 notification ( R.drawable.notification_failed, failed );
             }
             Log.e ( "database_data", "" + response );
@@ -184,6 +196,7 @@ public class Splash extends AppCompatActivity {
             ResponseHandler <String> responseHandler = new BasicResponseHandler ( );
             response = httpclient.execute ( httppost, responseHandler );
             if (response.equals ( null )) {
+
                 returnDivision = false;
             } else {
 
@@ -230,6 +243,8 @@ public class Splash extends AppCompatActivity {
             httppost.setEntity ( new UrlEncodedFormEntity ( nameValuePairs ) );
             ResponseHandler <String> responseHandler = new BasicResponseHandler ( );
             response = httpclient.execute ( httppost, responseHandler );
+
+            System.out.println ("This is the tariff "+response );
             if (response.equals ( null )) {
                 returnTariff = false;
             } else {
@@ -252,6 +267,7 @@ public class Splash extends AppCompatActivity {
 
                     sqlAdapter.openToRead ( );
                     sqlAdapter.openToWrite ( );
+                  //  sqlAdapter.get_tariff_name (  )
                     sqlAdapter.mastertariff_insert ( "", tariff_code, tariff_name, "", "" );
                     sqlAdapter.close ( );
                     returnTariff = true;

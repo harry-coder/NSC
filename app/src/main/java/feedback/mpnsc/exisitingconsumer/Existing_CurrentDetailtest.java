@@ -3,8 +3,11 @@ package feedback.mpnsc.exisitingconsumer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -40,9 +44,11 @@ import java.util.ArrayList;
 
 import feedback.mpnsc.CustomClasses.SingleTicketInfoPojo;
 import feedback.mpnsc.DataHolderClass;
+import feedback.mpnsc.Feasibility;
 import feedback.mpnsc.Feasibility_photo;
 import feedback.mpnsc.Options;
 import feedback.mpnsc.R;
+import feedback.mpnsc.SQLiteAdapter;
 
 /**
  * Created by swatiG on 02-07-2015.
@@ -64,147 +70,54 @@ public class Existing_CurrentDetailtest extends Activity {
     TextView TVTicketnum;
 
     ImageView im_back;
-    private String ticket;
+    public static String ticket;
 
     String div_code, sec_code;
     private String response;
     private String user_father, user_mobile_no, user_landmark, user_address, user_name;
 
+    EditText et_middleName, et_lastName, et_address2, et_address3;
+    String str_middleName, str_lastName, str_address2, str_address3;
+
+
+    String lastName, middleName, address2, address3;
+
+    Spinner sp_MD;
+
+    Spinner sp_appliedCategory;
+
+    Cursor project_cursor;
+    SQLiteAdapter sqLiteAdapter_name;
+    ArrayList <String> project_name_list, project_id_list, tariff_load, tariff_load_unit;
+
+    ArrayAdapter <String>  project_adapter;
+
+    private SQLiteDatabase sqLiteDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.current_add );
 
-        ticket = getIntent ( ).getStringExtra ( "ticket" );
+
+
+        ticket = getIntent ( ).getExtras().getString ( "ticket" );
+
 
 
         callView ( );
+        if(ticket!=null){
+            TVTicketnum.setText ( ticket );
+
+        }
 
 
         new SearchTicketNumber ( ).execute ( );
 
 
-
-       /* TVTicketnum.setText ( DataHolderClass.getInstance ( ).get_new_meter_ticket_no ( ) );
-        Log.e ( "house_no", DataHolderExisting.getInstance ( ).getPlot ( ) );
-
-        if (DataHolderExisting.getInstance ( ).getName ( ).equals ( "null" )) {
-            name.setText ( "" );
-        } else
-            name.setText ( DataHolderExisting.getInstance ( ).getName ( ) );
-
-        if (DataHolderExisting.getInstance ( ).getMiddle_name ( ).equals ( "null" )) {
-            middle.setText ( "" );
-        } else
-            middle.setText ( DataHolderExisting.getInstance ( ).getMiddle_name ( ) );
-
-        if (DataHolderExisting.getInstance ( ).getLast_name ( ).equals ( "null" )) {
-            last.setText ( "" );
-        } else
-            last.setText ( DataHolderExisting.getInstance ( ).getLast_name ( ) );
-
-        if (DataHolderExisting.getInstance ( ).getFather_husband_name ( ).equals ( "null" )) {
-            father_name.setText ( "" );
-        } else
-            father_name.setText ( DataHolderExisting.getInstance ( ).getFather_husband_name ( ) );
-
-        // plot_no=(EditText)findViewById(R.id.et_plotno);
-        if (DataHolderExisting.getInstance ( ).getPlot ( ).equals ( "null" )) {
-            house_no.setText ( "" );
-        } else
-            house_no.setText ( DataHolderExisting.getInstance ( ).getPlot ( ) );
-
-        //house_no=(EditText)findViewById(R.id.et_houseno);
-        if (DataHolderExisting.getInstance ( ).getBuilding ( ).equals ( "null" )) {
-            plot_no.setText ( "" );
-        } else
-            plot_no.setText ( DataHolderExisting.getInstance ( ).getBuilding ( ) );
-
-        //building_name=(EditText)findViewById(R.id.et_buildng_name);
-        if (DataHolderExisting.getInstance ( ).getHousename ( ).equals ( "null" )) {
-            building_name.setText ( "" );
-        } else
-            building_name.setText ( DataHolderExisting.getInstance ( ).getHousename ( ) );
-
-        //holding_khata_no=(EditText)findViewById(R.id.et_holding_khata_no);
-        if (DataHolderExisting.getInstance ( ).getKhatano ( ).equals ( "null" )) {
-            holding_khata_no.setText ( "" );
-        } else
-            holding_khata_no.setText ( DataHolderExisting.getInstance ( ).getKhatano ( ) );
-
-        // ward_no=(EditText)findViewById(R.id.et_ward_no);
-        if (DataHolderExisting.getInstance ( ).getWard ( ).equals ( "null" )) {
-            ward_no.setText ( "" );
-        } else
-            ward_no.setText ( DataHolderExisting.getInstance ( ).getWard ( ) );
-
-        //street=(EditText)findViewById(R.id.et_street);
-        if (DataHolderExisting.getInstance ( ).getStreet ( ).equals ( "null" )) {
-            street.setText ( "" );
-        } else
-            street.setText ( DataHolderExisting.getInstance ( ).getStreet ( ) );
-
-        //block=(EditText)findViewById(R.id.et_block);
-        if (DataHolderExisting.getInstance ( ).getBlock ( ).equals ( "null" )) {
-            block.setText ( "" );
-        } else
-            block.setText ( DataHolderExisting.getInstance ( ).getBlock ( ) );
-
-        //gp=(EditText)findViewById(R.id.et_gp);
-        if (DataHolderExisting.getInstance ( ).getGP ( ).equals ( "null" )) {
-            gp.setText ( "" );
-        } else
-            gp.setText ( DataHolderExisting.getInstance ( ).getGP ( ) );
-
-        //address=(EditText)findViewById(R.id.et_address);
-        if (DataHolderExisting.getInstance ( ).getAddress1 ( ).equals ( "null" )) {
-            address.setText ( "" );
-        } else
-            address.setText ( DataHolderExisting.getInstance ( ).getAddress1 ( ) );
-
-        //pin_no=(EditText)findViewById(R.id.et_pin);
-        if (DataHolderExisting.getInstance ( ).getpin ( ).equals ( "null" )) {
-            pin_no.setText ( "" );
-        } else
-            pin_no.setText ( DataHolderExisting.getInstance ( ).getpin ( ) );
-
-        //landmark=(EditText)findViewById(R.id.et_landmark);
-        if (DataHolderExisting.getInstance ( ).getAddress2 ( ).equals ( "null" )) {
-            landmark.setText ( "" );
-        } else
-            landmark.setText ( DataHolderExisting.getInstance ( ).getAddress2 ( ) );
-
-        //city=(EditText)findViewById(R.id.et_city);
-        if (DataHolderExisting.getInstance ( ).getVillage ( ).equals ( "null" )) {
-            city.setText ( "" );
-        } else
-            city.setText ( DataHolderExisting.getInstance ( ).getVillage ( ) );
-
-        //district=(EditText)findViewById(R.id.et_district);
-       *//* if(DataHolderExisting.getInstance().getDistrict().equals("null")){
-            district.setText("");
-        }else
-            district.setText(DataHolderExisting.getInstance().getDistrict());*//*
-
-        //email=(EditText)findViewById(R.id.et_email_id);
-        if (DataHolderExisting.getInstance ( ).getEmailid ( ).equals ( "null" )) {
-            email.setText ( "" );
-        } else
-            email.setText ( DataHolderExisting.getInstance ( ).getEmailid ( ) );
-
-        //mobile=(EditText)findViewById(R.id.et_mobile);
-        if (DataHolderExisting.getInstance ( ).getMobile_no ( ).equals ( "null" )) {
-            mobile.setText ( "" );
-        } else
-            mobile.setText ( DataHolderExisting.getInstance ( ).getMobile_no ( ) );
-
-        //landline=(EditText)findViewById(R.id.et_landline);
-        if (DataHolderExisting.getInstance ( ).getLand_line_no ( ).equals ( "null" )) {
-            landline.setText ( "" );
-        } else
-            landline.setText ( DataHolderExisting.getInstance ( ).getLand_line_no ( ) );
-*/
         tv_fname = findViewById ( R.id.tv_father );
         tv_block = findViewById ( R.id.tv_block );
         tv_address = findViewById ( R.id.tv_address );
@@ -213,29 +126,51 @@ public class Existing_CurrentDetailtest extends Activity {
         tv_village = findViewById ( R.id.tv_city );
         tv_mobile = findViewById ( R.id.tv_mobile );
 
+
+        et_lastName = findViewById ( R.id.et_lastName );
+        et_middleName = findViewById ( R.id.et_middleName );
+        et_address2 = findViewById ( R.id.et_address2 );
+        et_address3 = findViewById ( R.id.et_address3 );
+
         Sp_fName = new SpannableString ( tv_fname.getText ( ).toString ( ) );
         Sp_block = new SpannableString ( tv_block.getText ( ).toString ( ) );
         Sp_address = new SpannableString ( tv_address.getText ( ).toString ( ) );
         Sp_pincode = new SpannableString ( tv_pincode.getText ( ).toString ( ) );
-        Sp_landmark = new SpannableString ( tv_landmark.getText ( ).toString ( ) );
+
+        sp_appliedCategory=findViewById ( R.id.sp_appliedCategory );
+
+        // Sp_landmark = new SpannableString ( tv_landmark.getText ( ).toString ( ) );
+
         Sp_village = new SpannableString ( tv_village.getText ( ).toString ( ) );
         Sp_mobile = new SpannableString ( tv_mobile.getText ( ).toString ( ) );
         Sp_fName.setSpan ( new ForegroundColorSpan ( Color.RED ), 23, 24, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
         Sp_block.setSpan ( new ForegroundColorSpan ( Color.RED ), 5, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
-        Sp_address.setSpan ( new ForegroundColorSpan ( Color.RED ), 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
-        Sp_pincode.setSpan ( new ForegroundColorSpan ( Color.RED ), 6, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
-        Sp_landmark.setSpan ( new ForegroundColorSpan ( Color.RED ), 8, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+        Sp_address.setSpan ( new ForegroundColorSpan ( Color.RED ), 9, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+        Sp_pincode.setSpan ( new ForegroundColorSpan ( Color.RED ), 11, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+
+        //Sp_landmark.setSpan ( new ForegroundColorSpan ( Color.RED ), 8, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+
         Sp_village.setSpan ( new ForegroundColorSpan ( Color.RED ), 17, 18, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
         Sp_mobile.setSpan ( new ForegroundColorSpan ( Color.RED ), 6, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
         tv_fname.setText ( Sp_fName );
         tv_block.setText ( Sp_block );
         tv_address.setText ( Sp_address );
         tv_pincode.setText ( Sp_pincode );
-        tv_landmark.setText ( Sp_landmark );
+
+
+        sp_MD = findViewById ( R.id.sp_MD );
+        // tv_landmark.setText ( Sp_landmark );
+
         tv_village.setText ( Sp_village );
         tv_mobile.setText ( Sp_mobile );
 
-        father_name.addTextChangedListener ( new TextWatcher ( ) {
+        project_name_list = new ArrayList <String> ( );
+        project_id_list = new ArrayList <String> ( );
+        tariff_load = new ArrayList <String> ( );
+        tariff_load_unit = new ArrayList <String> ( );
+
+
+       /* father_name.addTextChangedListener ( new TextWatcher ( ) {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -334,8 +269,8 @@ public class Existing_CurrentDetailtest extends Activity {
             public void afterTextChanged(Editable editable) {
                 mobile.setBackgroundColor ( getResources ( ).getColor ( R.color.themecolor ) );
             }
-        } );
-        landmark.addTextChangedListener ( new TextWatcher ( ) {
+        } );*/
+        /*landmark.addTextChangedListener ( new TextWatcher ( ) {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -350,17 +285,17 @@ public class Existing_CurrentDetailtest extends Activity {
             public void afterTextChanged(Editable editable) {
                 landmark.setBackgroundColor ( getResources ( ).getColor ( R.color.themecolor ) );
             }
-        } );
+        } );*/
 
 
-        final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        /*final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
         email.addTextChangedListener ( new TextWatcher ( ) {
             public void afterTextChanged(Editable s) {
 
                 String emailStr = email.getEditableText ( ).toString ( ).trim ( );
                 if (emailStr.matches ( emailPattern ) && s.length ( ) > 0) {
-                    email.setBackgroundColor ( getResources ( ).getColor ( R.color.themecolor ) );
+                    // email.setBackgroundColor ( getResources ( ).getColor ( R.color.themecolor ) );
                 } else {
                     email.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
                 }
@@ -373,18 +308,19 @@ public class Existing_CurrentDetailtest extends Activity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // other stuffs
             }
-        } );
+        } );*/
 
 
         submit = findViewById ( R.id.btn_submit );
         submit.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
+
                 title_position = title.getSelectedItemPosition ( );
                 str_title = title.getSelectedItem ( ).toString ( );
                 str_name = name.getText ( ).toString ( ).trim ( );
-                str_middle = middle.getText ( ).toString ( ).trim ( );
-                str_last = last.getText ( ).toString ( ).trim ( );
+//                str_middle = middle.getText ( ).toString ( ).trim ( );
+                //              str_last = last.getText ( ).toString ( ).trim ( );
                 str_father_name = father_name.getText ( ).toString ( ).trim ( );
 
                 str_plot_no = plot_no.getText ( ).toString ( ).trim ( );
@@ -397,12 +333,21 @@ public class Existing_CurrentDetailtest extends Activity {
                 str_gp = gp.getText ( ).toString ( ).trim ( );
                 str_address = address.getText ( ).toString ( ).trim ( );
                 str_pin_no = pin_no.getText ( ).toString ( ).trim ( );
-                str_landmark = landmark.getText ( ).toString ( ).trim ( );
+
+                //str_landmark = landmark.getText ( ).toString ( ).trim ( );
+
                 str_city = city.getText ( ).toString ( ).trim ( );
+
                 str_district = district.getSelectedItem ( ).toString ( );
                 str_email = email.getText ( ).toString ( ).trim ( );
                 str_mobile = mobile.getText ( ).toString ( ).trim ( );
                 str_landline = landline.getText ( ).toString ( ).trim ( );
+
+
+                str_address2 = et_address2.getText ( ).toString ( ).trim ( );
+                str_address3 = et_address3.getText ( ).toString ( ).trim ( );
+                str_middleName = et_middleName.getText ( ).toString ( ).trim ( );
+                str_lastName = et_lastName.getText ( ).toString ( ).trim ( );
 
 
                 //str_mobile=mobile.getText().toString().trim();
@@ -419,12 +364,19 @@ public class Existing_CurrentDetailtest extends Activity {
 
 
                 if (str_name.equals ( "" )) {
-                    name.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+
+                    name.setError ( "Field Required" );
+                    name.requestFocus ( );
+
+                    //       name.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+
                 }
                 //else if (str_middle.equals("")){middle.setBackgroundColor(Color.YELLOW);}
                 //else if (str_last.equals("")){last.setBackgroundColor(Color.YELLOW); }
                 else if (str_father_name.equals ( "" )) {
-                    father_name.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+                    father_name.setError ( "Field Required" );
+                    father_name.requestFocus ( );
+                    //father_name.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
                 }
 
                /* else if(str_plot_no.equals("")){ plot_no.setBackgroundColor(Color.YELLOW);}
@@ -433,23 +385,53 @@ public class Existing_CurrentDetailtest extends Activity {
                 else if (str_holding_khata_no.equals("")){holding_khata_no.setBackgroundColor(Color.YELLOW); }
                 else if (str_ward_no.equals("")){ward_no.setBackgroundColor(Color.YELLOW);}
                 else if (str_street.equals("")){street.setBackgroundColor(Color.YELLOW); }*/
-                else if (str_block.equals ( "" )) {
+                /*else if (str_block.equals ( "" )) {
                     block.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
-                } else if (str_pin_no.equals ( "" )) {
-                    pin_no.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+                }*/
+
+                else if(!TextUtils.isEmpty ( str_email )) {
+                    final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                    String emailStr = email.getEditableText ( ).toString ( ).trim ( );
+                    if (!emailStr.matches ( emailPattern )) {
+
+                        email.setError ( "Invalid Email" );
+                        email.requestFocus ();
+                        // email.setBackgroundColor ( getResources ( ).getColor ( R.color.themecolor ) );
+                    }
+                }
+
+                else if (str_pin_no.equals ( "" )) {
+
+                    pin_no.setError ( "Field Required" );
+                    pin_no.requestFocus ( );
+
+                    //  pin_no.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
                 }
                 // else if (str_gp.equals("")){gp.setBackgroundColor(Color.YELLOW);}
                 else if (str_address.equals ( "" )) {
-                    address.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
-                } else if (str_landmark.equals ( "" )) {
+
+                    address.setError ( "Field Required" );
+                    address.requestFocus ( );
+
+                    //address.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+                }
+                /*else if (str_landmark.equals ( "" )) {
                     landmark.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
-                } else if (str_city.equals ( "" )) {
-                    city.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+                }
+                */
+                else if (str_city.equals ( "" )) {
+                    city.requestFocus ();
+                    city.setError ( "Field Required" );
+                   // city.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
                 }
                 // else if (district.getSelectedItem().toString().trim().equals("Select District")){district.setBackgroundColor(Color.YELLOW); }
                 //else if (str_email.equals("")){email.setBackgroundColor(Color.YELLOW);}
                 else if (str_mobile.equals ( "" ) || str_mobile.length ( ) != 11) {
-                    mobile.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+
+                    mobile.setError ( "Field Required" );
+                    mobile.requestFocus ( );
+
+                    // mobile.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
                 }
                /* else if((Integer.parseInt(str_mobile.substring(0,1)) < 7) || (Integer.parseInt(str_mobile.substring(0,1)) > 9)){
                     Toast.makeText(getApplicationContext(), "Mobile number must be start form 7,8,9 Number", Toast.LENGTH_SHORT).show();
@@ -461,6 +443,7 @@ public class Existing_CurrentDetailtest extends Activity {
                 //else if (str_landline.equals("")){landline.setBackgroundColor(Color.YELLOW);}
                 else {
 
+                    System.out.println ("Inside send to server" );
                     new SendToServer ( ).execute ( );
 
                    /* Intent i = new Intent ( Existing_CurrentDetailtest.this, Existing_DataFinish.class );
@@ -548,7 +531,7 @@ public class Existing_CurrentDetailtest extends Activity {
     @Override
     protected void onPause() {
         super.onPause ( );
-        Log.e ( "from cons", "onPause" );
+       /* Log.e ( "from cons", "onPause" );
         title_position = title.getSelectedItemPosition ( );
         str_title = title.getSelectedItem ( ).toString ( );
         str_name = name.getText ( ).toString ( ).trim ( );
@@ -594,7 +577,7 @@ public class Existing_CurrentDetailtest extends Activity {
         DataHolderClass.getInstance ( ).set_district ( str_district );
         DataHolderClass.getInstance ( ).set_email ( str_email );
         DataHolderClass.getInstance ( ).set_mobile ( str_mobile );
-        DataHolderClass.getInstance ( ).set_landline ( str_landline );
+        DataHolderClass.getInstance ( ).set_landline ( str_landline );*/
     }
 
     public class SearchTicketNumber extends AsyncTask <String, String, String> {
@@ -621,9 +604,9 @@ public class Existing_CurrentDetailtest extends Activity {
 
 
                 //  HttpPost httppost = new HttpPost(sessionManager.GET_URL());
-                HttpPost httppost = new HttpPost ( "http://wcrm.fedco.co.in/phedapi/nscapi/get_existing" );
+                HttpPost httppost = new HttpPost ( "http://dlenhanceuat.phed.com.ng/dlenhanceapi/nscapi/get_existing" );
 
-
+               // http://dlenhanceuat.phed.com.ng/dlenhanceapi
                 httppost.setEntity ( new UrlEncodedFormEntity ( nameValuePairs ) );
                 ResponseHandler <String> responseHandler = new BasicResponseHandler ( );
                 response = httpclient.execute ( httppost, responseHandler );
@@ -651,6 +634,21 @@ public class Existing_CurrentDetailtest extends Activity {
             address.setText ( user_address );
             name.setText ( user_name );
 
+
+            if(!address2.equalsIgnoreCase ( "null" )){
+                et_address2.setText ( address2 );
+
+            }
+            if(!address3.equalsIgnoreCase ( "null" )) {
+                et_address3.setText ( address3 );
+            }
+            if(!middleName.equalsIgnoreCase ( "null" )) {
+               et_middleName.setText ( middleName );
+            }
+            if(!lastName.equalsIgnoreCase ( "null" )) {
+                et_lastName.setText ( lastName );
+            }
+
         }
     }
 
@@ -667,9 +665,11 @@ public class Existing_CurrentDetailtest extends Activity {
                 JSONObject userInfoObject = userInfoArray.getJSONObject ( 0 );
 
 
+
+
                 user_father = userInfoObject.getString ( "FATHERNAME" );
                 user_mobile_no = userInfoObject.getString ( "MOBILE_NUMBER" );
-                user_landmark = userInfoObject.getString ( "ADDRESS2" );
+                //  user_landmark = userInfoObject.getString ( "ADDRESS2" );
                 user_address = userInfoObject.getString ( "ADDRESS1" );
                 user_name = userInfoObject.getString ( "NEWFIRSTNAME" );
 
@@ -677,157 +677,16 @@ public class Existing_CurrentDetailtest extends Activity {
                 sec_code = userInfoObject.getString ( "SEC_CODE" );
 
 
-             /*   for (int i = 0; i < userInfoArray.length ( ); i++) {
-                    JSONObject userInfoObject = userInfoArray.getJSONObject ( i );
+                address2 = userInfoObject.getString ( "ADDRESS2" );
+                address3 = userInfoObject.getString ( "ADDRESS3" );
+
+                middleName = userInfoObject.getString ( "NEWMIDDLENAME" );
+                lastName = userInfoObject.getString ( "LAST_NAME" );
 
 
-                    SingleTicketInfoPojo singleTicketInfoPojo = new SingleTicketInfoPojo ( );
 
 
-                    singleTicketInfoPojo.setDivCode ( userInfoObject.getString ( "DIV_CODE" ) );
-                    singleTicketInfoPojo.setName ( userInfoObject.getString ( "NEWFIRSTNAME" ) );
-                    singleTicketInfoPojo.setSecCode ( userInfoObject.getString ( "SEC_CODE" ) );
 
-
-                    div_code = userInfoObject.getString ( "DIV_CODE" );
-
-
-                    DataHolderExisting.getInstance ( ).setDivision_code ( div_code );
-
-                    Sub_div_code = c.getString ( "SUB_DIV_CODE" );
-                    user_detail.put ( "Sub_div_code", Sub_div_code );
-                    DataHolderExisting.getInstance ( ).setSub_division_code ( Sub_div_code );
-
-                    sec_code = c.getString ( "SEC_CODE" );
-                    user_detail.put ( "sec_code", sec_code );
-                    DataHolderExisting.getInstance ( ).setSection_code ( sec_code );
-
-                    NewFirstName = c.getString ( "NEWFIRSTNAME" );
-                    user_detail.put ( "NewFirstName", NewFirstName );
-                    DataHolderExisting.getInstance ( ).setName ( NewFirstName );
-
-                    NewMiddleName = c.getString ( "NEWMIDDLENAME" );
-                    user_detail.put ( "NewMiddleName", NewMiddleName );
-                    DataHolderExisting.getInstance ( ).setMiddle_name ( NewMiddleName );
-
-                    NewLastName = c.getString ( "LAST_NAME" );
-                    user_detail.put ( "NewLastName", NewLastName );
-                    DataHolderExisting.getInstance ( ).setLast_name ( NewLastName );
-
-                    FatherName = c.getString ( "FATHERNAME" );
-                    user_detail.put ( "FatherName", FatherName );
-                    DataHolderExisting.getInstance ( ).setFather_husband_name ( FatherName );
-
-                    Building = c.getString ( "BUILDING" );
-                    user_detail.put ( "Building", Building );
-                    DataHolderExisting.getInstance ( ).setBuilding ( Building );
-
-                    PLOT = c.getString ( "PLOT" );
-                    user_detail.put ( "PLOT", PLOT );
-                    DataHolderExisting.getInstance ( ).setPlot ( PLOT );
-
-                    HouseName = c.getString ( "HOUSENAME" );
-                    user_detail.put ( "HouseName", HouseName );
-                    DataHolderExisting.getInstance ( ).setHousename ( HouseName );
-
-                    KhataNo = c.getString ( "KHATANO" );
-                    user_detail.put ( "KhataNo", KhataNo );
-                    DataHolderExisting.getInstance ( ).setKhatano ( KhataNo );
-
-                    Ward = c.getString ( "WARD" );
-                    user_detail.put ( "Ward", Ward );
-                    DataHolderExisting.getInstance ( ).setWard ( Ward );
-
-                    Street = c.getString ( "STREET" );
-                    user_detail.put ( "Street", Street );
-                    DataHolderExisting.getInstance ( ).setStreet ( Street );
-
-                    Block = c.getString ( "BLOCK" );
-                    user_detail.put ( "Block", Block );
-                    DataHolderExisting.getInstance ( ).setBlock ( Block );
-
-                    GP = c.getString ( "GP" );
-                    user_detail.put ( "GP", GP );
-                    DataHolderExisting.getInstance ( ).setGP ( GP );
-
-                    Address1 = c.getString ( "ADDRESS1" );
-                    user_detail.put ( "Address1", Address1 );
-                    DataHolderExisting.getInstance ( ).setAddress1 ( Address1 );
-
-                    PIN = c.getString ( "PIN" );
-                    user_detail.put ( "PIN", PIN );
-                    DataHolderExisting.getInstance ( ).setpin ( PIN );
-
-
-                    Address2 = c.getString ( "ADDRESS2" );
-                    user_detail.put ( "Address2", Address2 );
-                    DataHolderExisting.getInstance ( ).setAddress2 ( Address2 );
-
-                    Village = c.getString ( "VILLAGE" );
-                    user_detail.put ( "Village", Village );
-                    DataHolderExisting.getInstance ( ).setVillage ( Village );
-
-                    District = c.getString ( "DISTRICT" );
-                    user_detail.put ( "District", District );
-                    DataHolderExisting.getInstance ( ).setDistrict ( District );
-
-                    LANDLINE_NUMBER = c.getString ( "LANDLINE_NUMBER" );
-                    user_detail.put ( "LANDLINE_NUMBER", LANDLINE_NUMBER );
-                    DataHolderExisting.getInstance ( ).setLand_line_no ( LANDLINE_NUMBER );
-
-                    Mobile_number = c.getString ( "MOBILE_NUMBER" );
-                    user_detail.put ( "Mobile_number", Mobile_number );
-                    DataHolderExisting.getInstance ( ).setMobile_no ( Mobile_number );
-
-
-                    EmaiL_ID = c.getString ( "EMAIL_ID" );
-                    user_detail.put ( "EmaiL_ID", EmaiL_ID );
-                    DataHolderExisting.getInstance ( ).setEmailid ( EmaiL_ID );
-
-
-                    LoadRequired = c.getString ( "LOADREQUIRED" );
-                    user_detail.put ( "LoadRequired", LoadRequired );
-                    System.out.println ( "ExistingLoadreq" + LoadRequired );
-                    DataHolderExisting.getInstance ( ).setLoadreq ( LoadRequired );
-
-                    CustGroup = c.getString ( "CUSTGROUP" );
-                    user_detail.put ( "CustGroup", CustGroup );
-                    DataHolderExisting.getInstance ( ).setLoadcategory ( CustGroup );
-
-                    str_update_status = c.getString ( "UPDATE_STATUS" ).trim ( );
-
-
-                    Log.e ( "hasmap", "" + user_detail );
-                    Log.e ( "sec_code", sec_code );
-
-                    if (str_update_status.equals ( "1" )) {
-                        ShowAlertGetConsUpdation ( );
-                    } else {
-
-
-                        // Intent intent = new Intent(ExistingConsumer_Search.this, Existing_tab1.class);
-                        Intent intent = new Intent ( ExistingConsumer_Search.this, Existing_CurrentDetailtest.class );
-
-                        intent.putExtra ( "user_detail", user_detail );
-                        intent.putExtra ( "div_code", div_code );
-                        intent.putExtra ( "Sub_div_code", Sub_div_code );
-                        intent.putExtra ( "sec_code", sec_code );
-
-
-                        //        System.out.println ("This is sub div "+Sub_div_code );
-                        DataHolderClass.getInstance ( ).set_ticket_no ( str_ticket_no );
-                        startActivity ( intent );
-                        finish ( );
-
-                    }
-                }
-
-            }catch(Exception e)
-            {
-                Log.e ( " final exception", "" + e.getMessage ( ) );
-                ShowAlert ( );
-            }
-*/
             }
         } catch (JSONException e) {
             e.printStackTrace ( );
@@ -849,6 +708,10 @@ public class Existing_CurrentDetailtest extends Activity {
             pd.setMessage ( "record sending" );
             pd.setCancelable ( false );
             pd.show ( );
+
+
+
+
         }
 
         @Override
@@ -868,8 +731,8 @@ public class Existing_CurrentDetailtest extends Activity {
 
                 nameValuePairs.add ( new BasicNameValuePair ( "ConsTitle", str_title ) );
                 nameValuePairs.add ( new BasicNameValuePair ( "NewFirstName", str_name ) );
-                nameValuePairs.add ( new BasicNameValuePair ( "NewMiddleName", str_middle ) );
-                nameValuePairs.add ( new BasicNameValuePair ( "NewLastName", str_last ) );
+                nameValuePairs.add ( new BasicNameValuePair ( "NewMiddleName", str_middleName ) );
+                nameValuePairs.add ( new BasicNameValuePair ( "NewLastName", str_lastName ) );
                 nameValuePairs.add ( new BasicNameValuePair ( "FatherName", str_father_name ) );
 
                 nameValuePairs.add ( new BasicNameValuePair ( "Building", str_building_name ) );
@@ -882,7 +745,9 @@ public class Existing_CurrentDetailtest extends Activity {
                 nameValuePairs.add ( new BasicNameValuePair ( "GP", "" ) );
                 nameValuePairs.add ( new BasicNameValuePair ( "Address1", str_address ) );
                 nameValuePairs.add ( new BasicNameValuePair ( "PIN", str_pin_no ) );
-                nameValuePairs.add ( new BasicNameValuePair ( "Address2", str_landmark ) );
+                nameValuePairs.add ( new BasicNameValuePair ( "Address2", str_address2 ) );
+
+                nameValuePairs.add ( new BasicNameValuePair ( "Address3", str_address3 ) );
 
                 nameValuePairs.add ( new BasicNameValuePair ( "Village", str_city ) );
                 nameValuePairs.add ( new BasicNameValuePair ( "District", str_district ) );
@@ -898,7 +763,7 @@ public class Existing_CurrentDetailtest extends Activity {
                 HttpClient httpclient = new DefaultHttpClient ( );
 
                 //HttpPost httppost = new HttpPost(sessionManager.GET_URL());
-                HttpPost httppost = new HttpPost ( "http://wcrm.fedco.co.in/phedapi/nscapi/update_consumer" );
+                HttpPost httppost = new HttpPost ( "http://dlenhanceuat.phed.com.ng/dlenhanceapi/nscapi/update_consumer" );
 
 
                 // HttpPost httppost = new HttpPost("http://sbm.fieldpm.com/sb/handset_reading");
@@ -906,7 +771,12 @@ public class Existing_CurrentDetailtest extends Activity {
                 ResponseHandler <String> responseHandler = new BasicResponseHandler ( );
                 response = httpclient.execute ( httppost, responseHandler );
                 Log.e ( "Response7", response );
+
+
+                System.out.println ( "Inside the records back" );
+
             } catch (Exception e) {
+
 
                 System.out.println ( "This is exception " + e );
                 // Log.e("Response4","->"+e);
@@ -947,54 +817,7 @@ public class Existing_CurrentDetailtest extends Activity {
                     }
                 } else {
                     ShowAlert ( );
-                   /* sqLiteMasterTableAdapter.openToRead();
-                    sqLiteMasterTableAdapter.openToWrite();
-                    sqLiteMasterTableAdapter.insert_update_consumer
-                            (DataHolderClass.getInstance().get_division(),
-                                    DataHolderClass.getInstance().get_subdivion(),
-                                    DataHolderClass.getInstance().get_section(),
-                                    "",
-                                    DataHolderClass.getInstance().get_name(),
-                                    DataHolderClass.getInstance().get_father_name(),
-                                    DataHolderClass.getInstance().get_name_org_corp(),
-                                    DataHolderClass.getInstance().get_type_org(),
-                                    DataHolderClass.getInstance().get_name_org(),
-                                    DataHolderClass.getInstance().get_block(),//signat_name
-                                    DataHolderClass.getInstance().get_bulding_no(),
-                                    DataHolderClass.getInstance().get_city(),
-                                    DataHolderClass.getInstance().get_district(),
-                                    DataHolderClass.getInstance().get_gp(),
-                                    DataHolderClass.getInstance().get_house_no(),//plot
-                                    DataHolderClass.getInstance().get_street(),
-                                    DataHolderClass.getInstance().get_tehsil(),
-                                    DataHolderClass.getInstance().get_village(),
-                                    DataHolderClass.getInstance().get_block1(),
-                                    DataHolderClass.getInstance().get_city1(),
-                                    DataHolderClass.getInstance().get_district1(),
-                                    DataHolderClass.getInstance().get_gp1(),
-                                    DataHolderClass.getInstance().get_house_no1(),
-                                    DataHolderClass.getInstance().get_street1(),
-                                    DataHolderClass.getInstance().get_tehsil1(),
-                                    DataHolderClass.getInstance().get_village1(),
-                                    DataHolderClass.getInstance().get_bulding_no1(),
-                                    DataHolderClass.getInstance().get_mobile(),
-                                    DataHolderClass.getInstance().get_email1(),
-                                    DataHolderClass.getInstance().get_landline1(),
-                                    DataHolderClass.getInstance().get_designation(),
-                                    DataHolderClass.getInstance().get_connect_load(),
-                                    DataHolderClass.getInstance().get_tariff_cat(),
-                                    "0.0",
-                                    "0.0",
-                                    "0.0",
-                                    "0.0",
-                                    image, meterimageName+","+DataHolderClass.getInstance().get_person_available(),
-                                    DataHolderClass.getInstance().get_pan_no(),
-                                    DataHolderClass.getInstance().get_pin_no(),
-                                    DataHolderClass.getInstance().get_pin_no1(),
-                                    DataHolderClass.getInstance().get_ticket_no());
-                    Toast.makeText(getApplicationContext(), "Record Saved due to internet interrupt", Toast.LENGTH_SHORT).show();
-                    sqLiteMasterTableAdapter.close();
-                    finish();*/
+
                 }
             } catch (Exception e) {
             }
@@ -1010,64 +833,85 @@ public class Existing_CurrentDetailtest extends Activity {
                             new SendToServer ( ).execute ( );
                         }
                     } );
-                   /* builder.setNegativeButton(" ", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Toast.makeText(getApplicationContext(),"Record Saved",Toast.LENGTH_SHORT).show();
-                            sqLiteMasterTableAdapter.openToRead();
-                            sqLiteMasterTableAdapter.openToWrite();
-                            sqLiteMasterTableAdapter.insert_update_consumer
-                                    (DataHolderClass.getInstance().get_division(),
-                                            DataHolderClass.getInstance().get_subdivion(),
-                                            DataHolderClass.getInstance().get_section(),
-                                            "",
-                                            DataHolderClass.getInstance().get_name(),
-                                            DataHolderClass.getInstance().get_father_name(),
-                                            DataHolderClass.getInstance().get_name_org_corp(),
-                                            DataHolderClass.getInstance().get_type_org(),
-                                            DataHolderClass.getInstance().get_name_org(),
-                                            DataHolderClass.getInstance().get_block(),//signat_name
-                                            DataHolderClass.getInstance().get_bulding_no(),
-                                            DataHolderClass.getInstance().get_city(),
-                                            DataHolderClass.getInstance().get_district(),
-                                            DataHolderClass.getInstance().get_gp(),
-                                            DataHolderClass.getInstance().get_house_no(),//plot
-                                            DataHolderClass.getInstance().get_street(),
-                                            DataHolderClass.getInstance().get_tehsil(),
-                                            DataHolderClass.getInstance().get_village(),
-                                            DataHolderClass.getInstance().get_block1(),
-                                            DataHolderClass.getInstance().get_city1(),
-                                            DataHolderClass.getInstance().get_district1(),
-                                            DataHolderClass.getInstance().get_gp1(),
-                                            DataHolderClass.getInstance().get_house_no1(),
-                                            DataHolderClass.getInstance().get_street1(),
-                                            DataHolderClass.getInstance().get_tehsil1(),
-                                            DataHolderClass.getInstance().get_village1(),
-                                            DataHolderClass.getInstance().get_bulding_no1(),
-                                            DataHolderClass.getInstance().get_mobile(),
-                                            DataHolderClass.getInstance().get_email1(),
-                                            DataHolderClass.getInstance().get_landline1(),
-                                            DataHolderClass.getInstance().get_designation(),
-                                            DataHolderClass.getInstance().get_connect_load(),
-                                            DataHolderClass.getInstance().get_tariff_cat(),
-                                            "0.0",
-                                            "0.0",
-                                            "0.0",
-                                            "0.0",
-                                            image, meterimageName+","+DataHolderClass.getInstance().get_person_available(),
-                                            DataHolderClass.getInstance().get_pan_no(),
-                                            DataHolderClass.getInstance().get_pin_no(),
-                                            DataHolderClass.getInstance().get_pin_no1(),
-                                            DataHolderClass.getInstance().get_ticket_no());
 
-                            Toast.makeText(getApplicationContext(),"record saved",Toast.LENGTH_LONG).show();
-
-                            finish();
-                        }
-                    });*/
                     AlertDialog alert = builder.create ( );
                     alert.show ( );
                 }
             } );
         }
     }
+    public class Project_Value extends AsyncTask <String, String, String> {
+        ProgressDialog pd;
+        Context _context;
+
+        Project_Value(Context ctx) {
+            _context = ctx;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            // ShowAlertagain();
+            super.onPreExecute ( );
+            pd = new ProgressDialog ( Existing_CurrentDetailtest.this, R.style.MyAlertDialogStyle );
+            pd.setMessage ( "Please wait..." );
+            pd.setCancelable ( false );
+            pd.show ( );
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            // TODO Auto-generated method stub
+            sqLiteAdapter_name = new SQLiteAdapter ( Existing_CurrentDetailtest.this );
+            try {
+                sqLiteAdapter_name.openToRead ( );
+                sqLiteAdapter_name.openToWrite ( );
+                project_cursor = sqLiteAdapter_name.tariffname ( );
+                if (project_cursor != null && project_cursor.moveToFirst ( )) {
+                    project_name_list.add ( "Select Tariff Name " );
+                    project_id_list.add ( "Select Tariff Name " );
+                    tariff_load.add ( " " );
+                    tariff_load_unit.add ( " " );
+                    do {
+
+                        project_id_list.add ( project_cursor.getString ( 2 ).toString ( ) );
+
+                        project_name_list.add ( project_cursor.getString ( 3 ).toString ( ) );
+
+                        tariff_load.add ( project_cursor.getString ( 4 ) );
+                        tariff_load_unit.add ( project_cursor.getString ( 5 ) );
+
+                       /* Log.e("dist_code",dist_code);
+                        Log.e("dist_name",dist_name);*/
+
+                    } while (project_cursor.moveToNext ( ));
+                }
+            } catch (Exception e) {
+                e.printStackTrace ( );
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute ( result );
+            pd.hide ( );
+            pd.dismiss ( );
+            try {
+                project_adapter = new ArrayAdapter<String> ( Existing_CurrentDetailtest.this, android.R.layout.simple_spinner_item, project_id_list );
+                project_adapter.setDropDownViewResource ( R.layout.spinner_item );
+               sp_appliedCategory.setAdapter ( project_adapter );
+
+            } catch (Exception e) {
+                e.printStackTrace ( );
+            }
+        }
+    }
+    public Cursor tariffname()
+    {
+        Cursor  cursor = sqLiteDatabase.rawQuery("Select * from TBL_TARIFF_CATEGORY", null);
+        return cursor;
+    }
+
 }

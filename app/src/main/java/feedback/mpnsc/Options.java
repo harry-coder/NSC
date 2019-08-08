@@ -109,8 +109,15 @@ public class Options extends Activity {
         meter_entry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Options.this,SearchTicket.class);
+
+                Intent intent=new Intent(Options.this,Existing_tab1.class);
+                intent.putExtra ( "Meter", "Meter Installation" );
+
                 startActivity(intent);
+
+      /*          Intent intent=new Intent(Options.this,SearchTicket.class);
+                startActivity(intent);
+      */
             }
         });
 

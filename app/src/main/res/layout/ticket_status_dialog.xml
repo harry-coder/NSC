@@ -14,7 +14,9 @@
 
 
         <RadioGroup
-            android:id="@+id/radiogroup"
+            android:id="@+id/radioGroup"
+
+
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -22,65 +24,76 @@
 
             <RadioButton
                 android:id="@+id/rb_accept"
+                style="@style/input_gen"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:text="Accept"
-                style="@style/input_gen"
                 android:textColor="#764EC2"
                 android:textSize="15sp" />
 
             <RadioButton
                 android:id="@+id/rb_reject"
+                style="@style/input_gen"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
-                style="@style/input_gen"
                 android:text="Reject"
                 android:textColor="#764EC2"
                 android:textSize="15sp" />
 
             <RadioButton
                 android:id="@+id/rb_hold"
+                style="@style/input_gen"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
                 android:text="Hold"
-                style="@style/input_gen"
                 android:textColor="#764EC2"
                 android:textSize="15sp" />
 
         </RadioGroup>
 
-        <TextView
-            android:id="@+id/tv_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/et_reason"
-            android:layout_alignStart="@+id/et_reason"
-            android:layout_below="@+id/radiogroup"
-            android:layout_marginTop="10dp"
-            android:text="*Please enter the Reason"
-            android:visibility="gone"
-            android:textColor="#ff0000" />
-
-        <EditText
-            android:id="@+id/et_reason"
-            style="@style/input_gen"
+        <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/tv_textview"
-            android:layout_margin="10dp"
-            android:textColor="#fff"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioGroup"
+            android:layout_marginTop="10dp"
             android:visibility="gone"
 
-            />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="*Please enter the Reason"
+                android:textColor="#ff0000"
+                android:layout_marginLeft="10dp" />
+
+            <Spinner
+                android:id="@+id/sp_reason"
+                style="@style/input_gen"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+
+                android:entries="@array/feasibility_reasons"
+                android:layout_margin="10dp"
+                android:textColor="#fff"
+
+
+                />
+        </LinearLayout>
 
         <Button
-            style="@style/btn_gen"
-            android:id="@+id/bt_statusSubmit"
 
-            android:layout_below="@+id/et_reason"
+            android:id="@+id/bt_statusSubmit"
+            style="@style/btn_gen"
+
+            android:layout_below="@+id/linear"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
 
@@ -97,16 +110,24 @@
 
         >
 
-        <ImageView
+        <FrameLayout
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentTop="true"
-
-
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
+            android:background="@drawable/ring_background">
 
-            android:background="@drawable/ring_background" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:layout_gravity="center"
+
+
+                android:src="@drawable/status_icon" />
+
+        </FrameLayout>
     </RelativeLayout>
 
 </RelativeLayout>

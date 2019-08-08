@@ -1,36 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/innerpage_body">
-    <ScrollView
-        style="@style/innerpage_body_scroll">
-    <LinearLayout
-        style="@style/innerpage_scrollin"
-        android:layout_height="fill_parent">
-        <LinearLayout
-            style="@style/innerpage_head">
-            <ImageView
-                android:src="@drawable/ico_update"
-                style="@style/innerpage_headico"/>
-            <feedback.mpnsc.CustomTextViewThin
-                style="@style/innerpage_headtitle"
-                android:id="@+id/textViewTicket"
-                android:text="Search Customer Ticket"/>
-            <feedback.mpnsc.CustomTextView
-                style="@style/innerpage_headsubtitle"
-                android:id="@+id/textViewTicketValue"
-                android:text="Ticket Numberr"/>
 
-        </LinearLayout>
+    <ScrollView style="@style/innerpage_body_scroll">
+
         <LinearLayout
-            style="@style/innerpage_content"
-            android:gravity="center_vertical"
+            style="@style/innerpage_scrollin"
             android:layout_height="fill_parent">
 
+            <LinearLayout style="@style/innerpage_head">
+
+                <ImageView
+                    android:id="@+id/im_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back_icon"
+                    android:layout_gravity="top"
+                    android:layout_marginStart="15dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="10dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+
+                    android:layout_marginLeft="15dp" />
+
+                <ImageView
+                    style="@style/innerpage_headico"
+                    android:src="@drawable/ico_update" />
+
+                <feedback.mpnsc.CustomTextViewThin
+                    android:id="@+id/textViewTicket"
+                    style="@style/innerpage_headtitle"
+                    android:text="Search Customer Ticket" />
+
+                <feedback.mpnsc.CustomTextView
+                    android:id="@+id/textViewTicketValue"
+                    style="@style/innerpage_headsubtitle"
+                    android:text="Ticket Number" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/innerpage_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical">
 
 
-
-            <!--<TableLayout-->
+                <!--<TableLayout-->
                 <!--android:id="@+id/tab1_relatives"-->
                 <!--android:layout_width="fill_parent"-->
                 <!--android:layout_height="wrap_content"-->
@@ -39,186 +55,239 @@
                 <!--android:orientation="vertical"-->
                 <!--android:padding="5dp">-->
 
-            <LinearLayout
-                style="@style/linear_label_holder">
+                <LinearLayout style="@style/linear_label_holder">
                     <!--  Screen Design for Food tab -->
                     <TextView
                         android:id="@+id/textView"
-                        android:text="IBC :"
-                        style="@style/label_title"/>
+                        style="@style/label_title"
+                        android:text="IBC :" />
 
                     <Spinner
                         android:id="@+id/division_spinner"
+                        style="@style/spinner_gen"
+                        android:background="@color/themecolor"
                         android:entries="@array/tv"
+                        android:popupBackground="@color/themecolor">
+
+                    </Spinner>
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_label_holder">
+
+                    <TextView
+                        android:id="@+id/tv_subdivision"
+                        style="@style/label_title"
+                        android:text="Sub-Division Name :"
+                        android:visibility="gone" />
+
+                    <Spinner
+                        android:id="@+id/spn_subdivion"
+                        style="@style/spinner_gen"
                         android:background="@color/themecolor"
                         android:popupBackground="@color/themecolor"
-                        style="@style/spinner_gen"></Spinner>
-            </LinearLayout>
+                        android:visibility="gone">
 
-            <LinearLayout
-                style="@style/linear_label_holder">
+                    </Spinner>
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_subdivision"
-                    android:visibility="gone"
-                    android:text="Sub-Division Name :"
-                    style="@style/label_title"/>
+                <LinearLayout style="@style/linear_label_holder">
+
+                    <TextView
+                        android:id="@+id/tv_section"
+                        style="@style/label_title"
+                        android:text="BSC:" />
+
+                    <Spinner
+                        android:id="@+id/section"
+                        style="@style/spinner_gen"
+                        android:background="@color/themecolor"
+                        android:popupBackground="@color/themecolor" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_label_holder">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="3">
+
+                        <View
+                            android:layout_width="400dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:layout_marginTop="5dp"
+                            android:background="#fff" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="OR"
+                            android:layout_marginBottom="5dp"
+                            android:textColor="#fff" />
+
+                        <View
+                            android:layout_marginTop="5dp"
+                            android:layout_width="400dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="#fff" />
+                    </LinearLayout>
+
+                    <feedback.mpnsc.CustomTextView
+                        style="@style/innerpage_headsubtitle"
+                        android:layout_marginTop="10dp"
+                        android:text="Search Ticket by Number" />
+
+
+                    <EditText
+                        android:id="@+id/et_ticketNo"
+                        style="@style/input_gen"
+                        android:layout_marginTop="4dp"
+                        android:digits="0123456789"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:singleLine="true" />
+                </LinearLayout>
+
 
                 <Spinner
-                    android:id="@+id/spn_subdivion"
-                    android:visibility="gone"
-                    android:background="@color/themecolor"
-                    android:popupBackground="@color/themecolor"
-                    style="@style/spinner_gen"></Spinner>
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/linear_label_holder">
-
-                <TextView
-                    android:id="@+id/tv_section"
-                    android:text="BSC:"
-                    style="@style/label_title"/>
+                    android:id="@+id/spinner_route"
+                    style="@style/spinner_gen"
+                    android:visibility="gone" />
 
                 <Spinner
-                    android:id="@+id/section"
-                    android:background="@color/themecolor"
-                    android:popupBackground="@color/themecolor"
-                    style="@style/spinner_gen"/>
+                    android:id="@+id/spinner3"
+                    style="@style/spinner_gen"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/spinner4"
+                    style="@style/spinner_gen"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/spinner5"
+                    style="@style/spinner_gen"
+                    android:visibility="gone" />
+
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/spinner_gen"
+                    android:text="Cycle:"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/spinner4"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/tv_section"
+                    android:layout_toLeftOf="@+id/spinner_route"
+
+                    android:padding="5dp"
+                    android:text="Route:                   "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/spinner5"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/textView3"
+                    android:layout_toLeftOf="@+id/spinner3"
+                    android:padding="5dp"
+                    android:text="Ownership:               "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/spinner5"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/textView4"
+
+                    android:layout_toLeftOf="@+id/spinner5"
+                    android:padding="5dp"
+                    android:text="Customer Type:            "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/spinner6"
+                    style="@style/spinner_gen"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/spinner6"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/textView5"
+                    android:layout_toLeftOf="@+id/spinner6"
+                    android:padding="5dp"
+                    android:text="Department:              "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/spinner7"
+                    style="@style/spinner_gen"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/spinner8"
+                    style="@style/spinner_gen"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/spinner8"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/textView6"
+                    android:layout_toLeftOf="@+id/spinner7"
+                    android:padding="5dp"
+                    android:text="ED Exeption:             "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/spinner8"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/spinner7"
+                    android:layout_toLeftOf="@+id/spinner7"
+                    android:padding="5dp"
+                    android:text="Meter Status:            "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:visibility="gone" />
+                <!--</TableLayout>-->
+
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    style="@style/btn_gen"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Search" />
+
+
             </LinearLayout>
-
-            <Spinner
-                android:id="@+id/spinner_route"
-                style="@style/spinner_gen"
-                android:visibility="gone" />
-
-            <Spinner
-                android:id="@+id/spinner3"
-                style="@style/spinner_gen"
-                android:visibility="gone" />
-
-            <Spinner
-                android:id="@+id/spinner4"
-                style="@style/spinner_gen"
-                android:visibility="gone" />
-
-            <Spinner
-                android:id="@+id/spinner5"
-                style="@style/spinner_gen"
-                android:visibility="gone" />
-
-
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/spinner_gen"
-                android:text="Cycle:"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/spinner4"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/tv_section"
-                android:layout_toLeftOf="@+id/spinner_route"
-
-                android:padding="5dp"
-                android:text="Route:                   "
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/spinner5"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView3"
-                android:layout_toLeftOf="@+id/spinner3"
-                android:padding="5dp"
-                android:text="Ownership:               "
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/spinner5"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView4"
-
-                android:layout_toLeftOf="@+id/spinner5"
-                android:padding="5dp"
-                android:text="Customer Type:            "
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:visibility="gone" />
-
-            <Spinner
-                android:id="@+id/spinner6"
-                style="@style/spinner_gen"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/spinner6"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView5"
-                android:layout_toLeftOf="@+id/spinner6"
-                android:padding="5dp"
-                android:text="Department:              "
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:visibility="gone" />
-
-            <Spinner
-                android:id="@+id/spinner7"
-                style="@style/spinner_gen"
-                android:visibility="gone" />
-
-            <Spinner
-                android:id="@+id/spinner8"
-                style="@style/spinner_gen"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/spinner8"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView6"
-                android:layout_toLeftOf="@+id/spinner7"
-                android:padding="5dp"
-                android:text="ED Exeption:             "
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/spinner8"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/spinner7"
-                android:layout_toLeftOf="@+id/spinner7"
-                android:padding="5dp"
-                android:text="Meter Status:            "
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:visibility="gone" />
-            <!--</TableLayout>-->
-
-
-            <Button
-                android:id="@+id/btn_submit"
-                android:text="Next"
-                android:layout_gravity="center_horizontal"
-                style="@style/btn_gen"/>
-
-
         </LinearLayout>
-    </LinearLayout>
     </ScrollView>
 </LinearLayout>

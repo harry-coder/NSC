@@ -9,24 +9,50 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import feedback.mpnsc.ConnectionDetector;
+import feedback.mpnsc.CustomClasses.ConnectivityDialog;
+import feedback.mpnsc.CustomClasses.TicketPojo;
 import feedback.mpnsc.DataHolderClass;
+import feedback.mpnsc.Feasibility;
+import feedback.mpnsc.MeterDetail;
+import feedback.mpnsc.MeterImage;
 import feedback.mpnsc.Options;
 import feedback.mpnsc.R;
 import feedback.mpnsc.SQLiteAdapter;
+import feedback.mpnsc.SearchTicket;
 import feedback.mpnsc.TicketDialogFragment.FeasibilityTicketListBottomDialog;
+import feedback.mpnsc.TicketDialogFragment.MeterTicketBottomDialog;
 import feedback.mpnsc.TicketDialogFragment.TicketListBottomDialog;
 
 import java.util.ArrayList;
@@ -45,6 +71,7 @@ public class Existing_tab1 extends AppCompatActivity {
             str_ownerships, str_cons_type, str_department, str_ed_exception, str_meter_status;
 
     SQLiteAdapter sqlAdapter;
+    String feasibility, meter;
 
     //-----------------------    ArrayList   ---------------------------------//
     ArrayList <String> divisionArraycode, divisionArrayname;
@@ -74,18 +101,29 @@ public class Existing_tab1 extends AppCompatActivity {
     /**
      * Called when the activity is first created.
      */
-    String str_division_code, str_subdivision_code, str_sec_code;
+    String str_division_code = "0";
+    String str_subdivision_code;
+    String str_sec_code = "0";
     int count1 = 0, count = 0, count2;
     boolean check = true;
     TextView TVTicketnum;
 
+    ConnectionDetector connectionDetector;
+
+    EditText et_ticketNo;
+    String ticket;
+
+    ImageView im_back;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature ( Window.FEATURE_NO_TITLE );
+        getWindow ( ).setFlags ( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
 
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.tab1 );
         TextView TVTicketnum1 = findViewById ( R.id.textViewTicketValue );
+
         TVTicketnum = findViewById ( R.id.textViewTicket );
         division_spinner = findViewById ( R.id.division_spinner );
         // subdivision_spinner=(Spinner)findViewById(R.id.spn_subdivion);
@@ -111,32 +149,88 @@ public class Existing_tab1 extends AppCompatActivity {
         subdivisionArraycode = new ArrayList <String> ( );
         sectionArrayname = new ArrayList <String> ( );
         sectionArraycode = new ArrayList <String> ( );
+
+        connectionDetector = new ConnectionDetector ( this );
+
+        et_ticketNo = findViewById ( R.id.et_ticketNo );
+
+        im_back=findViewById ( R.id.im_back );
+
+        im_back.setOnClickListener ( new View.OnClickListener ( ) {
+            @Override
+            public void onClick(View view) {
+                ShowAlertonBack ();
+            }
+        } );
+
         // routeArraycode=new ArrayList<String>();
 
-      //  submit.setEnabled ( false );
+        //  submit.setEnabled ( false );
+
+
         String div_code = getIntent ( ).getStringExtra ( "div_code" );
         String sub_div_code = getIntent ( ).getStringExtra ( "sub_div_code" );
         String sec_code = getIntent ( ).getStringExtra ( "sec_code" );
+
 
         System.out.println ( "This is is tha div " + div_code );
         System.out.println ( "This is is tha sub " + sub_div_code );
         System.out.println ( "This is is tha sec " + sec_code );
 
 
+        feasibility = getIntent ( ).getStringExtra ( "feasibility" );
+        meter = getIntent ( ).getStringExtra ( "Meter" );
 
 
+        et_ticketNo.addTextChangedListener ( new TextWatcher ( ) {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        final String feasibility = getIntent ( ).getStringExtra ( "feasibility" );
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+               // section_spinner.set
+
+                System.out.println ( "Inside the text changed" );
+                str_division_code = "0";
+                str_sec_code = "0";
+                ticket = editable.toString ( );
+
+            }
+        } );
         submit.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
 
-                if (!TextUtils.isEmpty ( str_division_code ) && !TextUtils.isEmpty ( str_sec_code )) {
+                if(str_sec_code==null||str_division_code==null){
+                    str_division_code="0";
+                    str_sec_code="0";
+                }
+
+                //ticket=et_ticketNo.getText ().toString ();
+
+                if (connectionDetector.isConnectingToInternet ( )) {
+
+                    /*if (ticket!=null) {
 
 
-                    str_division = division_spinner.getSelectedItem ( ).toString ( );
+                        new SearchTicketNumber ( ).execute ( ticket );
+
+                    }*/
+
+                    //if ((!TextUtils.isEmpty ( str_division_code ) && !TextUtils.isEmpty ( str_sec_code ))) {
+
+
+                    // str_division = division_spinner.getSelectedItem ( ).toString ( );
                     //str_subdivion=subdivision_spinner.getSelectedItem().toString();
-                    str_section = section_spinner.getSelectedItem ( ).toString ( );
+                    // str_section = section_spinner.getSelectedItem ( ).toString ( );
                     Log.e ( "spinner tab", "" + str_division + str_division + str_section + "" );
                     DataHolderClass dataHolderClass = DataHolderClass.getInstance ( );
                     dataHolderClass.set_division ( division_code );//str_division
@@ -149,52 +243,80 @@ public class Existing_tab1 extends AppCompatActivity {
                     int_section = section_spinner.getSelectedItemPosition ( );
 
 
-                    if (division_spinner.getSelectedItemPosition ( ) == 0 || section_spinner.getSelectedItemPosition ( ) == 0) {
+                        /*if (division_spinner.getSelectedItemPosition ( ) == 0 || section_spinner.getSelectedItemPosition ( ) == 0) {
 
-                        Toast.makeText ( Existing_tab1.this, "Enter all mandatory fields", Toast.LENGTH_SHORT ).show ( );
+                            Toast.makeText ( Existing_tab1.this, "Enter all mandatory fields", Toast.LENGTH_SHORT ).show ( );
 
+
+                        } else {*/
+
+
+                    System.out.println ( "div_code " + str_division_code );
+                    System.out.println ( "sec_code " + str_sec_code );
+
+
+                    if (feasibility != null) {
+
+                        System.out.println ( "This is in feasibility " + feasibility );
+                        FeasibilityTicketListBottomDialog mySheetDialog = FeasibilityTicketListBottomDialog.newInstance ( "" + str_division_code, "" + str_sec_code, "" + ticket );
+                        android.support.v4.app.FragmentManager fm = getSupportFragmentManager ( );
+                        mySheetDialog.show ( fm, "modal" );
+                        // feasibility=null;
+
+
+
+                    } else if (meter != null) {
+
+                        MeterTicketBottomDialog mySheetDialog = MeterTicketBottomDialog.newInstance ( "" + str_division_code, "" + str_sec_code, "" + ticket );
+                        android.support.v4.app.FragmentManager fm = getSupportFragmentManager ( );
+                        mySheetDialog.show ( fm, "modal" );
+                       // ticket = null;
 
                     } else {
-
-                        DataHolderClass.getInstance ( ).set_division ( division_code );
-                        DataHolderClass.getInstance ( ).set_subdivision ( subdivision_code );
-                        DataHolderClass.getInstance ( ).set_section ( section_code );
+                        System.out.println ( "This is in ticket" );
 
 
-                        if (feasibility != null) {
-                            FeasibilityTicketListBottomDialog mySheetDialog = FeasibilityTicketListBottomDialog.newInstance ( "" + str_division_code, "" + str_sec_code );
-                            android.support.v4.app.FragmentManager fm = getSupportFragmentManager ( );
-                            mySheetDialog.show ( fm, "modal" );
+                        System.out.println ( "This is division " + int_division );
+                        System.out.println ( "This is section " + int_section );
 
+                        TicketListBottomDialog mySheetDialog = TicketListBottomDialog.newInstance ( "" + str_division_code, "" + str_sec_code, "" + ticket );
+                        android.support.v4.app.FragmentManager fm = getSupportFragmentManager ( );
+                        mySheetDialog.show ( fm, "modal" );
 
-                        } else {
+                      //  ticket = null;
+                            /*    str_sec_code=null;
+                                str_division_code=null;
+                                ticket=null;
+*/
 
-                            System.out.println ("This is division "+int_division );
-                            System.out.println ("This is section "+int_section );
-                            TicketListBottomDialog mySheetDialog = TicketListBottomDialog.newInstance ( "" + str_division_code, "" + str_sec_code );
-                            android.support.v4.app.FragmentManager fm = getSupportFragmentManager ( );
-                            mySheetDialog.show ( fm, "modal" );
+                    }
 
-                        }
-                        //Ticket List BottomSheet Dialog
+                    ticket = null;
+                    et_ticketNo.setText ( "" );
+                    division_spinner.setSelection ( 0 );
+                    section_spinner.setSelection ( 0 );
+                    //Ticket List BottomSheet Dialog
 
                   /*  Intent i = new Intent(Existing_tab1.this, Existing_CurrentDetailtest.class);
                     startActivity(i);
 */
 
 
-                    }
+                    // }
                /* Intent i = new Intent(Existing_tab1.this, Existing_CurrentDetail.class);
                 startActivity(i);*/
 
 
-                }
-                else{
+                    /*} else {
 
-                    Toast.makeText ( Existing_tab1.this, "Please Select the values first!!", Toast.LENGTH_SHORT ).show ( );
+                        Toast.makeText ( Existing_tab1.this, "Please Select the values first!!", Toast.LENGTH_SHORT ).show ( );
 
+                    }*/
+                } else {
+                    new ConnectivityDialog ( Existing_tab1.this ).showConnectivityDialog ( );
                 }
             }
+
 
         } );
 
@@ -208,16 +330,17 @@ public class Existing_tab1 extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 //  Log.e("from","spinner1");
                 division_spinner.setBackgroundColor ( getResources ( ).getColor ( R.color.themecolor ) );
+                et_ticketNo.setText ( "" );
 
-                if(position>0){
+//                System.out.println ( "This is division " + divisionArraycode.get ( position ) );
+                if (position > 0) {
                     str_division_code = divisionArraycode.get ( position );
 
+                 //   et_ticketNo.setText ( "" );
 
+                } else {
 
-                }
-                else{
-
-                    str_division_code=null;
+                    str_division_code = null;
                 }
 
                 new SECTIONTABLEMANAGER ( Existing_tab1.this ).execute ( );
@@ -298,11 +421,16 @@ public class Existing_tab1 extends AppCompatActivity {
                 // TODO Auto-generated method stub
 
                 str_sec_code = sectionArraycode.get ( position );
-//                Toast.makeText(getApplicationContext(),""+section_code,Toast.LENGTH_LONG).show();
+
+
+                //
+
+//   Toast.makeText(getApplicationContext(),""+section_code,Toast.LENGTH_LONG).show();
                 if (position > 0) {
 
                 }
 
+             //   01244169108
 
                 //  Log.e("from", "spinner3");
 
@@ -313,7 +441,129 @@ public class Existing_tab1 extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         } );
+
     }
+
+
+    public class SearchTicketNumber extends AsyncTask <String, String, String> {
+        ProgressDialog pd;
+        String response;
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute ( );
+            pd = new ProgressDialog ( Existing_tab1.this, R.style.MyAlertDialogStyle );
+            pd.setMessage ( "searching..." );
+            pd.setCancelable ( false );
+            pd.show ( );
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String ticketNo = params[0];
+            ArrayList <NameValuePair> nameValuePairs = new ArrayList <NameValuePair> ( );
+            // nameValuePairs.add(new BasicNameValuePair("tag", "get_consumer_detail"));
+            nameValuePairs.add ( new BasicNameValuePair ( "table", ticketNo ) );
+
+            Log.e ( "namepairvalue", "" + nameValuePairs );
+            try {
+                HttpClient httpclient = new DefaultHttpClient ( );
+
+                // HttpPost httppost = new HttpPost(sessionManager.GET_URL());
+               // HttpPost httppost = new HttpPost ( "http://dlenhanceuat.phed.com.ng/dlenhanceapi/nscapi/get_existing" );
+                HttpPost httppost = new HttpPost ( "http://dlenhanceuat.phed.com.ng/dlenhanceapi/nscapi/get_existing" );
+
+
+               // http://dlenhanceuat.phed.com.ng/dlenhanceapi
+                httppost.setEntity ( new UrlEncodedFormEntity ( nameValuePairs ) );
+                ResponseHandler <String> responseHandler = new BasicResponseHandler ( );
+                response = httpclient.execute ( httppost, responseHandler );
+            } catch (Exception e) {
+                Log.e ( "log_tag", "Error in http connection " + e.toString ( ) );
+                //   network_interrupt = e.getMessage ( );
+            }
+            return response;
+        }
+
+        protected void onPostExecute(String result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute ( result );
+            pd.dismiss ( );
+            pd.hide ( );
+            try {
+                JSONObject user_info = new JSONObject ( response );
+                JSONArray infoArray = user_info.getJSONArray ( "Table" );
+
+                System.out.println ( "This is the response " + response );
+                if (infoArray.length ( ) > 0) {
+                    Intent intent;
+                    JSONObject infoObject = infoArray.getJSONObject ( 0 );
+                    String div_code = infoObject.getString ( "DIV_CODE" );
+                    String sec_code = infoObject.getString ( "SEC_CODE" );
+                    String father = infoObject.getString ( "FATHERNAME" );
+                    String address1 = infoObject.getString ( "ADDRESS1" );
+                    String address2 = infoObject.getString ( "ADDRESS2" );
+                    String mobile = infoObject.getString ( "MOBILE_NUMBER" );
+                    String name = infoObject.getString ( "NEWFIRSTNAME" );
+
+                    if (feasibility != null) {
+
+                        intent = new Intent ( Existing_tab1.this, Feasibility.class );
+
+
+                    } else if (meter != null) {
+                        intent = new Intent ( Existing_tab1.this, MeterDetail.class );
+
+
+                    } else {
+                        intent = new Intent ( Existing_tab1.this, Existing_CurrentDetailtest.class );
+
+
+                    }
+                    intent.putExtra ( "div_code", div_code );
+                    intent.putExtra ( "sec_code", sec_code );
+                    intent.putExtra ( "ticket", ticket );
+                    intent.putExtra ( "father", father );
+                    intent.putExtra ( "address1", address1 );
+                    intent.putExtra ( "address2", address2 );
+                    intent.putExtra ( "mobile", mobile );
+                    intent.putExtra ( "name", name );
+
+                    startActivity ( intent );
+
+
+                    ticket = null;
+
+                } else {
+                    ShowAlert ( "Ticket number not found. Please check" );
+                }
+            } catch (Exception e) {
+                Log.e ( " final exception", "" + e.getMessage ( ) );
+
+                ShowAlert ( "Something went wrong. Try Again!!" );
+            }
+        }
+    }
+
+    public void ShowAlert(final String message) {
+        Existing_tab1.this.runOnUiThread ( new Runnable ( ) {
+            public void run() {
+                AlertDialog.Builder builder = new AlertDialog.Builder ( Existing_tab1.this, R.style.MyAlertDialogStyle );
+                builder.setTitle ( message );
+                builder.setCancelable ( false );
+                builder.setPositiveButton ( "OK", new DialogInterface.OnClickListener ( ) {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss ( );
+                    }
+                } );
+                AlertDialog alert = builder.create ( );
+                alert.show ( );
+            }
+        } );
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -527,7 +777,7 @@ public class Existing_tab1 extends AppCompatActivity {
                 }*/
 
 
-                System.out.println ("This is the code "+ SQLiteAdapter.SUB_DIV_CODE + " = '" + str_division_code + "'");
+                System.out.println ( "This is the code " + SQLiteAdapter.SUB_DIV_CODE + " = '" + str_division_code + "'" );
                 sectiontablecursor = sqlAdapter.sectionqueueOne ( SQLiteAdapter.SUB_DIV_CODE + " = '" + str_division_code + "'" );
                 sectionArraycode.clear ( );
                 sectionArrayname.clear ( );
@@ -576,7 +826,6 @@ public class Existing_tab1 extends AppCompatActivity {
             }
         }
     }
-
 
 
     @Override

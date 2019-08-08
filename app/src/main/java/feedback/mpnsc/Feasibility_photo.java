@@ -5,11 +5,19 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -31,7 +39,15 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import feedback.mpnsc.exisitingconsumer.Existing_CurrentDetailtest;
 
 /**
  * Created by swatiG on 29-06-2015.
@@ -46,6 +62,15 @@ public class Feasibility_photo extends Activity {
     double home_lat, home_long, pole_lat, pole_long;
 
     private static String edhar_number = "";
+    public static final int MEDIA_TYPE_IMAGE = 1;
+
+    private static final String IMAGE_DIRECTORY_NAME = "NSC";
+    Uri fileUri;
+    String URI;
+    private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
+    static String meterimageName;
+    byte[] bmeter;
+
 
     SessionManager sessionManager;
     String response, network_interrupt, value_feasibility, str_ticket_no, str_ed_aadhar_no, str_ed_remark;
@@ -73,6 +98,10 @@ public class Feasibility_photo extends Activity {
     RadioGroup radio_land_status;
     String value_land;
     ImageView im_back;
+
+
+    String userImage, userAddress, otherDoc;
+    String userImageName, userAddressImageName, userOtherDocName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,7 +203,14 @@ public class Feasibility_photo extends Activity {
             @Override
             public void onClick(View v) {
 
-                str_ed_remark = ed_remark.getText ( ).toString ( ).trim ( );
+
+                if (authenticate ( )) {
+
+                    new SendImagesServer ( ).execute ( );
+                }
+
+
+               /* str_ed_remark = ed_remark.getText ( ).toString ( ).trim ( );
                 DataHolderClass.getInstance ( ).setRemark_feasibility ( str_ed_remark );
                 DataHolderClass.getInstance ( ).getConsumer_image_name ( );
                 DataHolderClass.getInstance ( ).getLand_image_name ( );
@@ -183,13 +219,13 @@ public class Feasibility_photo extends Activity {
 
                 if (TextUtils.isEmpty ( DataHolderClass.getInstance ( ).getConsumer_image_name ( ) )) {
                     Toast.makeText ( getApplicationContext ( ), "Click Consumer Image first* ", Toast.LENGTH_SHORT ).show ( );
-                } /*else if (TextUtils.isEmpty ( DataHolderClass.getInstance ( ).getStr_aadhar_no ( ) )) {
+                } *//*else if (TextUtils.isEmpty ( DataHolderClass.getInstance ( ).getStr_aadhar_no ( ) )) {
                     Toast.makeText ( getApplicationContext ( ), "Enter Aadhar Number* ", Toast.LENGTH_SHORT ).show ( );
 
-                }*/ /*else if (TextUtils.isEmpty ( DataHolderClass.getInstance ( ).getAadhar_image_name ( ) )) {
+                }*//* *//*else if (TextUtils.isEmpty ( DataHolderClass.getInstance ( ).getAadhar_image_name ( ) )) {
                     Toast.makeText ( getApplicationContext ( ), "Click Aadhar Image* ", Toast.LENGTH_SHORT ).show ( );
 
-                }*/ else if (TextUtils.isEmpty ( DataHolderClass.getInstance ( ).getStr_spinner_address_proof ( ) )) {
+                }*//* else if (TextUtils.isEmpty ( DataHolderClass.getInstance ( ).getStr_spinner_address_proof ( ) )) {
                     Toast.makeText ( getApplicationContext ( ), "Select address proof* ", Toast.LENGTH_SHORT ).show ( );
 
                 } else if (TextUtils.isEmpty ( DataHolderClass.getInstance ( ).getAdress_proof_name_input ( ) )) {
@@ -217,22 +253,25 @@ public class Feasibility_photo extends Activity {
 
                     }
                 }
-
+*/
 
             }
         } );
 
 
+        //For Uploading user Image
         consumer_btn.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
 
+                captureImage ( 100);
+
                 //c_name= DataHolderClass.getInstance().getConsumer_image_name();
 
-                startActivity ( new Intent ( Feasibility_photo.this, ConsumerImage.class ) );
+                /*startActivity ( new Intent ( Feasibility_photo.this, ConsumerImage.class ) );
 
                 finish ( );
-
+*/
 
             }
         } );
@@ -255,10 +294,16 @@ public class Feasibility_photo extends Activity {
             }
         } );
 
+
+        //For address.
         address_btn.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
-                str_address_id = ed_address_id.getText ( ).toString ( ).trim ( );
+
+                captureImage (200 );
+            //    userAddress = getImage ( );
+
+                /*str_address_id = ed_address_id.getText ( ).toString ( ).trim ( );
                 DataHolderClass.getInstance ( ).setAdress_proof_name_input ( str_address_id );
 
                 str_spinner_address = spinner_address.getSelectedItem ( ).toString ( );
@@ -269,7 +314,7 @@ public class Feasibility_photo extends Activity {
                 } else {
                     startActivity ( new Intent ( Feasibility_photo.this, AddressImage.class ) );
                     finish ( );
-                }
+                }*/
 
 
             }
@@ -293,19 +338,285 @@ public class Feasibility_photo extends Activity {
             }
         } );*/
 
+
+        //This is for any other docs
         no_dues_btn.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
 
-                startActivity ( new Intent ( Feasibility_photo.this, NoDuesImage.class ) );
-                finish ( );
+                captureImage (300 );
 
+
+              //  otherDoc = getImage ( );
+
+             /*   startActivity ( new Intent ( Feasibility_photo.this, NoDuesImage.class ) );
+                finish ( );
+*/
 
             }
         } );
 
 
     }
+
+    public boolean authenticate() {
+
+        if (TextUtils.isEmpty ( userImage )) {
+
+            Toast.makeText ( Feasibility_photo.this, "Click User Image", Toast.LENGTH_LONG ).show ( );
+            return false;
+        } else if (TextUtils.isEmpty ( userAddress )) {
+            Toast.makeText ( Feasibility_photo.this, "Click Address Image", Toast.LENGTH_LONG ).show ( );
+
+            return false;
+        }
+        return true;
+
+
+    }
+
+    public String getImage() {
+
+        try {
+            Bitmap bitmap1 = getPortraitViewBitmap ( fileUri.getPath ( ) );
+            return BitMapToString ( getResizedBitmap ( bitmap1, 80, 100 ) );
+        } catch (Exception e) {
+            Log.e ( "Exception in Camera ", e.getMessage ( ) );
+        }
+        return null;
+    }
+
+    // ==============================================Find Image start===================================//
+    private void captureImage(int code) {
+
+        Intent camIntent = new Intent ( "android.media.action.IMAGE_CAPTURE" );
+        fileUri = Uri.fromFile ( getOutputMediaFile ( MEDIA_TYPE_IMAGE) );
+        camIntent.putExtra ( MediaStore.EXTRA_OUTPUT, fileUri );
+
+        camIntent.putExtra ( "return-data", true );
+
+        camIntent.putExtra ( MediaStore.EXTRA_OUTPUT, fileUri );
+
+        startActivityForResult ( camIntent, code );
+
+
+       /* Intent intent = new Intent ( MediaStore.ACTION_IMAGE_CAPTURE );
+        fileUri = getOutputMediaFileUri ( MEDIA_TYPE_IMAGE );
+        URI = fileUri.getPath();
+        intent.putExtra ( MediaStore.EXTRA_OUTPUT, fileUri );
+        startActivityForResult ( intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE );*/
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 100) {
+            if (resultCode == RESULT_OK) {
+
+                userImage = getImage ( );
+                consumer_btn.setBackgroundColor ( getResources ( ).getColor ( R.color.edittexttheme ) );
+
+
+
+
+            }
+
+        }
+        if (requestCode == 200) {
+            if (resultCode == RESULT_OK) {
+
+                userAddress = getImage ( );
+                address_btn.setBackgroundColor ( getResources ( ).getColor ( R.color.edittexttheme ) );
+
+
+            }
+
+        }
+        if (requestCode == 300) {
+            if (resultCode == RESULT_OK) {
+
+                otherDoc = getImage ( );
+                no_dues_btn.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+
+
+            }
+
+        }
+    }
+
+
+
+    private static File getOutputMediaFile(int type) {
+        File mediaStorageDir = new File ( Environment.getExternalStoragePublicDirectory ( Environment.DIRECTORY_PICTURES ), IMAGE_DIRECTORY_NAME );
+        if (!mediaStorageDir.exists ( )) {
+            if (!mediaStorageDir.mkdirs ( )) {
+                Log.d ( IMAGE_DIRECTORY_NAME, "Oops! Failed create "
+                        + IMAGE_DIRECTORY_NAME + " directory" );
+                return null;
+            }
+        }
+        String timeStamp = new SimpleDateFormat ( "yyyyMMdd_HHmmss",
+                Locale.getDefault ( ) ).format ( new Date ( ) );
+        File mediaFile;
+        if (type == MEDIA_TYPE_IMAGE) {
+            meterimageName = timeStamp + ".jpg";
+
+            mediaFile = new File ( mediaStorageDir.getPath ( ) + File.separator
+                    + timeStamp + ".jpg" );
+        } else {
+            return null;
+        }
+        return mediaFile;
+    }
+
+    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+        int width = bm.getWidth ( );
+        int height = bm.getHeight ( );
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix ( );
+        // RESIZE THE BIT MAP
+        matrix.postScale ( scaleWidth, scaleHeight );
+
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap (
+                bm, 0, 0, width, height, matrix, false );
+        bm.recycle ( );
+        return resizedBitmap;
+    }
+
+    public Bitmap getPortraitViewBitmap(String filePath) throws IOException {
+        BitmapFactory.Options options = new BitmapFactory.Options ( );
+        options.inSampleSize = 8;
+        Bitmap resizedBitmap = BitmapFactory.decodeFile ( filePath, options );
+//                Log.e("IMAGE",""+String.valueOf(byteArray));
+        ExifInterface exif = new ExifInterface ( filePath );
+        String orientString = exif.getAttribute ( ExifInterface.TAG_ORIENTATION );
+        int orientation = orientString != null ? Integer.parseInt ( orientString )
+                : ExifInterface.ORIENTATION_NORMAL;
+        int rotationAngle = 0;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90)
+            rotationAngle = 90;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180)
+            rotationAngle = 180;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270)
+            rotationAngle = 270;
+        Matrix matrix = new Matrix ( );
+        matrix.setRotate ( rotationAngle, (float) resizedBitmap.getWidth ( ) / 2,
+                (float) resizedBitmap.getHeight ( ) / 2 );
+        Bitmap rotatedBitmap = Bitmap.createBitmap ( resizedBitmap, 0, 0,
+                resizedBitmap.getWidth ( ), resizedBitmap.getHeight ( ), matrix,
+                true );
+        return rotatedBitmap;
+    }
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++Change Image into Bitmap++++++++++++++++++++++++++++++++++//
+    public String BitMapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream ( );
+        bitmap.compress ( Bitmap.CompressFormat.JPEG, 100, baos );
+        bmeter = baos.toByteArray ( );
+        return Base64.encodeToString ( bmeter, Base64.DEFAULT );
+    }
+
+
+    public class SendImagesServer extends AsyncTask <String, String, String> {
+        String network_interrupt = null;
+        ProgressDialog pd;
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute ( );
+            pd = new ProgressDialog ( Feasibility_photo.this, R.style.MyAlertDialogStyle );
+            pd.setMessage ( "Sending Images" );
+            pd.setProgressStyle ( ProgressDialog.STYLE_SPINNER );
+            pd.setCancelable ( false );
+            pd.show ( );
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            ArrayList <NameValuePair> nameValuePairs = new ArrayList <NameValuePair> ( );
+
+            nameValuePairs.add ( new BasicNameValuePair ( "ticketno", Existing_CurrentDetailtest.ticket) );
+            nameValuePairs.add ( new BasicNameValuePair ( "cimagename", meterimageName ) );
+            nameValuePairs.add ( new BasicNameValuePair ( "cimage", userImage ) );
+            nameValuePairs.add ( new BasicNameValuePair ( "idname", System.currentTimeMillis ( ) + ".jpg" ) );
+            nameValuePairs.add ( new BasicNameValuePair ( "idimage", userAddress ) );
+            nameValuePairs.add ( new BasicNameValuePair ( "docname", System.currentTimeMillis ( ) + ".jpg" ) );
+            nameValuePairs.add ( new BasicNameValuePair ( "docimage", otherDoc ) );
+
+
+            Log.e ( "namevaluepair", "" + nameValuePairs );
+            try {
+                HttpClient httpclient = new DefaultHttpClient ( );
+
+                //    HttpPost httppost = new HttpPost(sessionManager.GET_URL());
+
+                HttpPost httppost = new HttpPost ( "http://dlenhanceuat.phed.com.ng/dlenhanceapi/nscapi/uploadDocuments" );
+
+                httppost.setEntity ( new UrlEncodedFormEntity ( nameValuePairs ) );
+                ResponseHandler <String> responseHandler = new BasicResponseHandler ( );
+                response = httpclient.execute ( httppost, responseHandler );
+            } catch (Exception e) {
+                network_interrupt = e.getMessage ( ).toString ( );
+                Log.e ( "log_tag", "Error in http connection " + e.toString ( ) );
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute ( result );
+            pd.dismiss ( );
+            pd.hide ( );
+            try {
+                if (network_interrupt == null) {
+
+                    response = response.trim ( );
+                    Log.e ( "response", response );
+
+
+                    if (!response.equalsIgnoreCase ( "success" )) {
+                        Toast.makeText ( getApplicationContext ( ), "record send successfully", Toast.LENGTH_SHORT ).show ( );
+                        startActivity ( new Intent ( Feasibility_photo.this, Options.class ) );
+                        finish ( );
+                    } else {
+                        ShowAlert ( );
+
+                    }
+
+
+                } else {
+                    /*sqLiteMasterTableAdapter.openToRead();
+                    sqLiteMasterTableAdapter.openToWrite();
+                    sqLiteMasterTableAdapter.insert_feasibility("set_feasibility", str_ticket_no,
+                            String.valueOf(home_lat),
+                            String.valueOf(home_long),
+                            String.valueOf(pole_lat),
+                            String.valueOf(pole_long),
+                            str_route,
+                            value_feasibility,str_manual_fes
+                    );
+                    sqLiteMasterTableAdapter.close();*/
+                    Toast.makeText ( getApplicationContext ( ), "Record not send due to internet interruption", Toast.LENGTH_SHORT ).show ( );
+                    finish ( );
+
+
+                }
+            } catch (Exception e) {
+                ShowAlert ( );
+            }
+
+
+        }
+
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -322,14 +633,13 @@ public class Feasibility_photo extends Activity {
                 builder.setPositiveButton ( "YES", new DialogInterface.OnClickListener ( ) {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        Intent intent = new Intent ( Feasibility_photo.this, Feasibility.class);
+                        Intent intent = new Intent ( Feasibility_photo.this, Options.class );
                         intent.setFlags ( Intent.FLAG_ACTIVITY_CLEAR_TOP );
                         startActivity ( intent );
 
 
                         //onNavigateUp ();
                         finish ( );
-
 
 
                     }
@@ -352,8 +662,8 @@ public class Feasibility_photo extends Activity {
         consumer_btn = findViewById ( R.id.consumer_btn );
         land_btn = findViewById ( R.id.land_btn );
         address_btn = findViewById ( R.id.address_btn );
-       // aadhar_btn = (Button) findViewById ( R.id.aadhar_btn );
-      //  ed_aadhar = (EditText) findViewById ( R.id.ed_aadharno );
+        // aadhar_btn = (Button) findViewById ( R.id.aadhar_btn );
+        //  ed_aadhar = (EditText) findViewById ( R.id.ed_aadharno );
         ed_remark = findViewById ( R.id.ed_remark );
         ed_address_id = findViewById ( R.id.ed_address );
         spinner_address = findViewById ( R.id.tv_address );
@@ -364,7 +674,7 @@ public class Feasibility_photo extends Activity {
         consumer_btn = findViewById ( R.id.consumer_btn );
         land_btn = findViewById ( R.id.land_btn );
         address_btn = findViewById ( R.id.address_btn );
-       // aadhar_btn = (Button) findViewById ( R.id.aadhar_btn );
+        // aadhar_btn = (Button) findViewById ( R.id.aadhar_btn );
 
         submit = findViewById ( R.id.submit );
 
@@ -470,7 +780,7 @@ public class Feasibility_photo extends Activity {
                 HttpClient httpclient = new DefaultHttpClient ( );
 //                HttpPost httppost = new HttpPost(sessionManager.GET_URL());
 
-                HttpPost httppost = new HttpPost ( "http://wcrm.fedco.co.in/phedapi/nscapi/set_feasibility" );
+                HttpPost httppost = new HttpPost ( "http://dlenhanceuat.phed.com.ng/dlenhanceapi/nscapi/set_feasibility" );
 
                 httppost.setEntity ( new UrlEncodedFormEntity ( nameValuePairs ) );
                 ResponseHandler <String> responseHandler = new BasicResponseHandler ( );
@@ -653,7 +963,10 @@ public class Feasibility_photo extends Activity {
                 builder.setTitle ( "Do You Want to..." );
                 builder.setPositiveButton ( "Try Again", new DialogInterface.OnClickListener ( ) {
                     public void onClick(DialogInterface dialog, int id) {
-                        new SendFeasibility ( ).execute ( );
+
+                        new SendImagesServer ( ).execute ( );
+                        //  new SendFeasibility ( ).execute ( );
+
                     }
                 } );
                 /*builder.setNegativeButton("Save Record", new DialogInterface.OnClickListener() {

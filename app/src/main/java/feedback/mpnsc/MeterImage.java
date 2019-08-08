@@ -2,6 +2,7 @@ package feedback.mpnsc;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -45,6 +46,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import feedback.mpnsc.CustomClasses.ConnectivityCheck;
+import feedback.mpnsc.CustomClasses.ConnectivityDialog;
+import feedback.mpnsc.CustomClasses.DialogBox;
+
 public class MeterImage extends Activity {
     // ..................................................Camera Variables................................//
 
@@ -66,6 +71,8 @@ public class MeterImage extends Activity {
     static String empid,c_code;
     String URI;
 
+    DialogBox dialogBox;
+
     CheckBox checkbox_person_avaiable;
     ConnectionDetector connectionDetector;
 
@@ -78,6 +85,7 @@ public class MeterImage extends Activity {
     SessionManager sessionManager;
 
     ImageView im_back;
+
 
     private boolean isDeviceSupportCamera() {
         if (MeterImage.this.getPackageManager().hasSystemFeature(
@@ -106,6 +114,8 @@ public class MeterImage extends Activity {
         checkbox_person_avaiable=(CheckBox)findViewById(R.id.checkBox2);
         btn_photograph1 = (Button) findViewById(R.id.imageButton1);
         btn_submit=(Button)findViewById(R.id.button1);
+
+
         checkbox_person_avaiable.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,6 +143,10 @@ public class MeterImage extends Activity {
                         //send data
                         new SendToServer().execute();
                     } else {
+
+                       new ConnectivityDialog ( MeterImage.this ).showConnectivityDialog ();
+
+/*
                         sqLiteMasterTableAdapter.openToRead();
                         sqLiteMasterTableAdapter.openToWrite();
                         sqLiteMasterTableAdapter.mastersubdivision_insert_new
@@ -181,7 +195,7 @@ public class MeterImage extends Activity {
 
                                 );
                         Toast.makeText(getApplicationContext(), "Record Saved", Toast.LENGTH_SHORT).show();
-                        finish();
+                        finish();*/
                     }
 
 
@@ -213,6 +227,8 @@ public class MeterImage extends Activity {
 
     }
 
+
+
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
@@ -227,7 +243,7 @@ public class MeterImage extends Activity {
                 builder.setTitle ( "Are you sure to go back:" );
                 builder.setPositiveButton ( "YES", new DialogInterface.OnClickListener ( ) {
                     public void onClick(DialogInterface dialog, int id) {
-                        startActivity ( new Intent ( MeterImage.this, MeterDetail.class ) );
+                        startActivity ( new Intent ( MeterImage.this, Options.class ) );
                         finish ( );
                     }
                 } );
@@ -390,6 +406,7 @@ public class MeterImage extends Activity {
         Debug.stopMethodTracing();
         super.onDestroy();
     }
+
     public class SendToServer extends AsyncTask<String, String,String>
     {    String network_interrupt=null;
         ProgressDialog pd;
@@ -408,7 +425,7 @@ public class MeterImage extends Activity {
 
             ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
             nameValuePairs.add(new BasicNameValuePair("tag","set_meter"));
-            nameValuePairs.add(new BasicNameValuePair("ticket_number",DataHolderClass.getInstance().getTicket_no()));
+            nameValuePairs.add(new BasicNameValuePair("ticket_number",MeterDetail.ticket));
             nameValuePairs.add(new BasicNameValuePair("lat_home",DataHolderClass.getInstance().getHome_lat()));
             nameValuePairs.add(new BasicNameValuePair("long_home",DataHolderClass.getInstance().getHome_long()));
             nameValuePairs.add(new BasicNameValuePair("lat_pole",DataHolderClass.getInstance().getPole_lat()));
@@ -430,6 +447,8 @@ public class MeterImage extends Activity {
             nameValuePairs.add(new BasicNameValuePair("meter_image_name",meterimageName));
             nameValuePairs.add(new BasicNameValuePair("meter_image",image));
             nameValuePairs.add(new BasicNameValuePair("meter_installer_name",DataHolderClass.getInstance().getMeterInstaller ()));
+            nameValuePairs.add(new BasicNameValuePair("meter_status","1"));
+
 
 
 
@@ -444,6 +463,9 @@ public class MeterImage extends Activity {
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 ResponseHandler<String> responseHandler = new BasicResponseHandler();
                 response = httpclient.execute(httppost,responseHandler);
+
+
+                System.out.println ( "This is the meter image response "+response );
             }
             catch(Exception e)
             {
@@ -470,7 +492,6 @@ public class MeterImage extends Activity {
                         finish();
                     } else {
                         ShowAlert();
-
                     }
 
 
@@ -511,7 +532,7 @@ public class MeterImage extends Activity {
                     builder.setNegativeButton("Record not send due to internet connectivity", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Toast.makeText(getApplicationContext(),"Record not send due to internet connectivity",Toast.LENGTH_SHORT).show();
-                            sqLiteMasterTableAdapter.openToRead();
+                            /*sqLiteMasterTableAdapter.openToRead();
                             sqLiteMasterTableAdapter.openToWrite();
                             sqLiteMasterTableAdapter.mastersubdivision_insert_new
                                     (DataHolderClass.getInstance().get_division(),
@@ -555,8 +576,8 @@ public class MeterImage extends Activity {
                                             DataHolderClass.getInstance().get_pan_no(),
                                             DataHolderClass.getInstance().get_pin_no(),
                                             DataHolderClass.getInstance().get_pin_no1());
-
-                            Toast.makeText(getApplicationContext(),"Record not send due to internet connectivity",Toast.LENGTH_LONG).show();
+*/
+                          //  Toast.makeText(getApplicationContext(),"Record not send due to internet connectivity",Toast.LENGTH_LONG).show();
                             finish();
                         }
                     });

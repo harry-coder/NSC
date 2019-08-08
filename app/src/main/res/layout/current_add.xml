@@ -17,6 +17,7 @@
                     android:layout_marginStart="15dp"
                     android:clickable="true"
                     android:focusable="true"
+                    android:padding="10dp"
                     android:foreground="?android:attr/selectableItemBackground"
 
                     android:layout_marginLeft="15dp" />
@@ -63,19 +64,24 @@
                 </TableLayout>
 
                 <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="First Name"
+                        style="@style/label_title"
+                        android:id="@+id/tv_first"
+                        />
+
+
+                </LinearLayout>
+                <LinearLayout
                     android:id="@+id/linear_first"
                     android:orientation="horizontal"
                     style="@style/linear_label_holder">
 
-                   <!-- <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="First Name"
-                        android:id="@+id/tv_first"
-                        android:layout_weight="1"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />-->
+
                     <Spinner
                         style="@style/spinner_gen"
                         android:layout_width="80dp"
@@ -100,15 +106,15 @@
                     <TextView
                         android:text="Middle Name"
                         android:id="@+id/tv_middle"
-                        android:visibility="gone"
+
                         style="@style/label_title"/>
 
                     <EditText
-                        android:id="@+id/editmiddle"
+                        android:id="@+id/et_middleName"
                         android:maxLength="35"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:inputType="textCapCharacters"
-                        android:visibility="gone"
+
                         style="@style/input_gen"/>
                 </LinearLayout>
 
@@ -122,7 +128,7 @@
                         style="@style/label_title"/>
 
                     <EditText
-                        android:id="@+id/editlast"
+                        android:id="@+id/et_lastName"
                         android:maxLength="50"
                         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:inputType="textCapCharacters"
@@ -145,6 +151,7 @@
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/linear1"
+                    android:visibility="gone"
                     style="@style/linear_label_holder">
 
                     <TextView
@@ -160,6 +167,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/linear_houseno"
                     style="@style/linear_label_holder">
 
@@ -176,6 +184,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+
                     android:id="@+id/linear2"
                     android:visibility="gone"
                     style="@style/linear_label_holder">
@@ -212,6 +221,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/linear_ward_no"
                     style="@style/linear_label_holder">
 
@@ -231,6 +241,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/linear3"
                     style="@style/linear_label_holder">
 
@@ -249,6 +260,7 @@
 
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/linear7"
                     style="@style/linear_label_holder">
 
@@ -287,14 +299,46 @@
                     style="@style/linear_label_holder">
 
                     <TextView
-                        android:text="Address*"
+                        android:text="Address-1*"
                         android:id="@+id/tv_address"
                         style="@style/label_title"/>
 
                     <EditText
                         android:id="@+id/et_address"
+                        android:hint="Enter Address"
                         android:inputType="textCapCharacters"
                         style="@style/input_gen"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_address2"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:id="@+id/tv_address2"
+                        style="@style/label_title"
+                        android:text="Address-2" />
+
+                    <EditText
+                        android:id="@+id/et_address2"
+                        style="@style/input_gen"
+                        android:hint="Enter Address"
+                        android:inputType="textCapCharacters" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linear_address3"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:id="@+id/tv_address3"
+                        style="@style/label_title"
+                        android:text="Address-3" />
+
+                    <EditText
+                        android:id="@+id/et_address3"
+                        style="@style/input_gen"
+                        android:hint="Enter Address"
+                        android:inputType="textCapCharacters" />
                 </LinearLayout>
 
 
@@ -303,7 +347,7 @@
                     style="@style/linear_label_holder">
 
                     <TextView
-                        android:text="Pin No*"
+                        android:text="Postal Code*"
                         android:id="@+id/tv_pin"
                         style="@style/label_title"/>
 
@@ -317,6 +361,7 @@
 
                 <LinearLayout
                     android:id="@+id/linear_landmark"
+                    android:visibility="gone"
                     style="@style/linear_label_holder">
 
                     <TextView
@@ -332,6 +377,7 @@
 
                 <LinearLayout
                     android:id="@+id/linear4"
+
                     style="@style/linear_label_holder">
 
                     <TextView
@@ -411,6 +457,107 @@
                 </LinearLayout>
 
 
+                <LinearLayout style="@style/linear_label_holder">
+                    <!--  Screen Design for Food tab -->
+                    <TextView
+                        android:id="@+id/textview1"
+                        style="@style/label_title"
+                        android:text="Status Of Children/Wards in the Premises" />
+
+                    <RadioGroup
+                        android:id="@+id/radio_consumer_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radio_con_yes"
+                            android:textColor="#FFF"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Yes" />
+
+                        <RadioButton
+                            android:id="@+id/radio_con_no"
+                            android:textColor="#fff"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="No" />
+                    </RadioGroup>
+                    <Spinner
+                        android:id="@+id/sp_children"
+                        style="@style/spinner_gen"
+                        android:background="@color/themecolor"
+                        android:entries="@array/children"
+                        android:layout_marginTop="10dp"
+                        android:popupBackground="@color/themecolor">
+
+                    </Spinner>
+                </LinearLayout>
+                <LinearLayout style="@style/linear_label_holder">
+                    <!--  Screen Design for Food tab -->
+                    <TextView
+                        android:id="@+id/textview2"
+                        style="@style/label_title"
+                        android:text="Types of Premises" />
+                    <RadioGroup
+                        android:id="@+id/radio_premiseType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_bungalow"
+                        android:textColor="#FFF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Bungalow" />
+
+                    <RadioButton
+                        android:id="@+id/rb_storyBuilding"
+                        android:textColor="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Story Building" />
+                    </RadioGroup>
+                    <LinearLayout
+                        android:id="@+id/linearfloor"
+                        style="@style/linear_label_holder">
+
+                        <TextView
+                            android:text="How Many Floor"
+                            android:id="@+id/tv_floor"
+                            style="@style/label_title"/>
+
+                        <EditText
+                            android:id="@+id/et_floor"
+                            android:maxLength="11"
+                            android:inputType="number"
+                            style="@style/input_gen"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout style="@style/linear_label_holder">
+                    <!--  Screen Design for Food tab -->
+                    <TextView
+                        android:id="@+id/textview3"
+                        style="@style/label_title"
+                        android:text="Use of Premises" />
+
+                    <Spinner
+                        android:id="@+id/sp_premisesUse"
+                        style="@style/spinner_gen"
+                        android:background="@color/themecolor"
+                        android:entries="@array/premises"
+                        android:popupBackground="@color/themecolor">
+
+                    </Spinner>
+                </LinearLayout>
+                
+
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -419,6 +566,71 @@
                     android:layout_marginTop="@dimen/margin_between"
                     android:id="@+id/checkBox"
                     android:layout_below="@+id/linear13"/>
+
+                <LinearLayout style="@style/linear_label_holder">
+                    <!--  Screen Design for Food tab -->
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/label_title"
+                        android:text="MD/NON-MD" />
+
+                    <Spinner
+                        android:id="@+id/sp_MD"
+                        style="@style/spinner_gen"
+                        android:background="@color/themecolor"
+                        android:entries="@array/MD"
+                        android:popupBackground="@color/themecolor">
+
+                    </Spinner>
+                </LinearLayout>
+                <LinearLayout style="@style/linear_label_holder">
+                    <!--  Screen Design for Food tab -->
+                    <TextView
+                        android:id="@+id/textViewCategory"
+                        style="@style/label_title"
+                        android:text="Applied Category" />
+
+                    <Spinner
+                        android:id="@+id/sp_appliedCategory"
+                        style="@style/spinner_gen"
+                        android:background="@color/themecolor"
+                        android:entries="@array/MD"
+                        android:popupBackground="@color/themecolor">
+
+                    </Spinner>
+                </LinearLayout>
+                <LinearLayout style="@style/linear_label_holder">
+                    <!--  Screen Design for Food tab -->
+                    <TextView
+                        android:id="@+id/textViewConnection"
+                        style="@style/label_title"
+                        android:text="Connection Type" />
+
+                    <Spinner
+                        android:id="@+id/sp_ConnectionType"
+                        style="@style/spinner_gen"
+                        android:background="@color/themecolor"
+                        android:entries="@array/ConnectionType"
+                        android:popupBackground="@color/themecolor">
+
+                    </Spinner>
+                </LinearLayout>
+                <LinearLayout style="@style/linear_label_holder">
+                    <!--  Screen Design for Food tab -->
+                    <TextView
+                        android:id="@+id/textViewReg"
+                        style="@style/label_title"
+                        android:text="Reg/Temp" />
+
+                    <Spinner
+                        android:id="@+id/sp_reg"
+                        style="@style/spinner_gen"
+                        android:background="@color/themecolor"
+                        android:entries="@array/Reg"
+                        android:popupBackground="@color/themecolor">
+
+                    </Spinner>
+                </LinearLayout>
 
                 <TextView
                     android:text="* Enter all Mandetory Field"
@@ -437,6 +649,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignRight="@+id/textid"
                     android:layout_alignEnd="@+id/textid" />-->
+
 
 
 

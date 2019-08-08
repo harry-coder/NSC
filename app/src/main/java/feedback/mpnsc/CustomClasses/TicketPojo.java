@@ -7,6 +7,24 @@ public class TicketPojo {
     String ticketGeneratedDate;
     String area;
 
+    public String getTechStatus() {
+        return techStatus;
+    }
+
+    public void setTechStatus(String techStatus) {
+        this.techStatus = techStatus;
+    }
+
+    String techStatus;
+    public String getDivision() {
+        return division;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
+    }
+
+    String division;
     public String getFatherName() {
         return fatherName;
     }

@@ -162,6 +162,71 @@
 
 
     </string-array>
+
+    <string-array name="feasibility_reasons">
+
+        <item>--Reason--</item>
+
+        <item>No Wiring</item>
+        <item>No Pole</item>
+
+    </string-array>
+    <string-array name="MD">
+
+
+        <item>MD</item>
+        <item>Non MD</item>
+
+    </string-array>
+    <string-array name="children">
+
+
+        <item>Below 12 Years</item>
+        <item>Above 12 years</item>
+
+    </string-array>
+    <string-array name="premises">
+
+
+        <item>Industrial</item>
+        <item>Commercial</item>
+        <item>Residential</item>
+
+    </string-array>
+    <string-array name="ConnectionType">
+
+
+        <item>Single Phase</item>
+        <item>3 Phase</item>
+
+    </string-array>
+    <string-array name="Reg">
+
+
+        <item>Regular</item>
+        <item>Temporary</item>
+
+    </string-array>
+
+    <string-array name="meter_serial_number">
+
+        <item>--Serial Number--</item>
+
+        <item>2030405060</item>
+        <item>7080901000</item>
+
+    </string-array>
+
+    <string-array name="transformer_code">
+
+        <item>--Select Code--</item>
+
+        <item>T1</item>
+        <item>T2</item>
+        <item>T3</item>
+
+    </string-array>
+
     <string name="api_key">AIzaSyABbdNucbJIiMCmGyuDp1viCFJVE7hAvJg</string>
 
     <!-- TODO: Remove or change this placeholder text -->

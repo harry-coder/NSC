@@ -10,5 +10,9 @@
         android:id="@+id/ticketInfo"
         android:title="Ticket Info " />
 
+    <item
+        android:id="@+id/loadExpense"
+        android:title="Load Expense " />
+
 
 </menu>

@@ -50,6 +50,7 @@ import feedback.mpnsc.exisitingconsumer.Existing_CurrentDetailtest;
 public class TicketListBottomDialog extends BottomSheetDialogFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
 
     // TODO: Rename and change types of parameters
     private String IBC;
@@ -63,15 +64,18 @@ public class TicketListBottomDialog extends BottomSheetDialogFragment {
 
     TextView tv_noTicket;
 
+    String ticket;
+
     public TicketListBottomDialog() {
         // Required empty public constructor
     }
 
-    public static TicketListBottomDialog newInstance(String param1, String param2) {
+    public static TicketListBottomDialog newInstance(String param1, String param2, String param3) {
         TicketListBottomDialog fragment = new TicketListBottomDialog ( );
         Bundle args = new Bundle ( );
         args.putString ( ARG_PARAM1, param1 );
         args.putString ( ARG_PARAM2, param2 );
+        args.putString ( ARG_PARAM3, param3 );
         fragment.setArguments ( args );
         return fragment;
     }
@@ -82,6 +86,9 @@ public class TicketListBottomDialog extends BottomSheetDialogFragment {
         if (getArguments ( ) != null) {
             IBC = getArguments ( ).getString ( ARG_PARAM1 );
             BSC = getArguments ( ).getString ( ARG_PARAM2 );
+            ticket = getArguments ( ).getString ( ARG_PARAM3 );
+
+
         }
 
     }
@@ -101,10 +108,24 @@ public class TicketListBottomDialog extends BottomSheetDialogFragment {
 
         tv_noTicket = view.findViewById ( R.id.tv_noTicket );
 
+
+        System.out.println ( "This is the ticket Number " + ticket );
+
         new FetchTickets ( ).execute ( );
+
+/*
+        if(!IBC.equalsIgnoreCase ( "-1" )){
+            new FetchTickets ( ).execute ( );
+        }
+        else if(!ticket.equalsIgnoreCase ( "0" )){
+
+        }
+*/
+
 
         return view;
     }
+
 
     public class FetchTickets extends AsyncTask <Void, Void, Void> {
 
@@ -118,22 +139,41 @@ public class TicketListBottomDialog extends BottomSheetDialogFragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-
+            HttpPost httppost;
             ArrayList <NameValuePair> nameValuePairs = new ArrayList <NameValuePair> ( );
             //  nameValuePairs.add(new BasicNameValuePair("tag","set_feasibility"));
 
+
             nameValuePairs.add ( new BasicNameValuePair ( "IBC", IBC ) );
             nameValuePairs.add ( new BasicNameValuePair ( "BSC", BSC ) );
+            httppost = new HttpPost ( "http://dlenhanceuat.phed.com.ng/dlenhanceapi/nscapi/getAllTickets" );
+
+
+/*
+            if(!ticket.equalsIgnoreCase ( "0" )){
+                nameValuePairs.add ( new BasicNameValuePair ( "table", ticket ) );
+
+                 httppost = new HttpPost ( "http://dlenhanceuat.phed.com.ng/dlenhanceapi/nscapi/get_existing" );
+
+            }
+            else{
+                nameValuePairs.add ( new BasicNameValuePair ( "IBC", IBC ) );
+                nameValuePairs.add ( new BasicNameValuePair ( "BSC", BSC ) );
+                 httppost = new HttpPost ( "http://dlenhanceuat.phed.com.ng/dlenhanceapi/nscapi/getAllTickets" );
+
+            }
+*/
 
 
             System.out.println ( "This is IBC " + IBC );
             System.out.println ( "This is BSC " + BSC );
+
+
             Log.e ( "namevaluepair", "" + nameValuePairs );
             try {
                 HttpClient httpclient = new DefaultHttpClient ( );
 
                 // HttpPost httppost = new HttpPost(sessionManager.GET_URL());
-                HttpPost httppost = new HttpPost ( "http://wcrm.fedco.co.in/phedapi/nscapi/getAllTickets" );
 
                 httppost.setEntity ( new UrlEncodedFormEntity ( nameValuePairs ) );
                 ResponseHandler <String> responseHandler = new BasicResponseHandler ( );
@@ -158,8 +198,33 @@ public class TicketListBottomDialog extends BottomSheetDialogFragment {
                 JSONObject responseObject = new JSONObject ( response );
 
                 if (responseObject.getJSONArray ( "Table" ).length ( ) > 0) {
-                    ticketAdapter.setSource ( parseJsonResponse ( responseObject ) );
-                    tv_noTicket.setVisibility ( View.GONE );
+
+                    if (!ticket.equalsIgnoreCase ( "" )) {
+
+                        System.out.println ("Inside ticket" );
+                        ArrayList <TicketPojo> list = parseTicketJsonResponse ( responseObject );
+                        if (list.size ( ) > 0) {
+                            ticketAdapter.setSource ( list );
+                        } else {
+                            tv_noTicket.setVisibility ( View.VISIBLE );
+
+                        }
+                        progressBar.setVisibility ( View.GONE );
+                    }
+
+                    else {
+                        System.out.println ("Inside IBC" );
+                        ArrayList <TicketPojo> list = parseJsonResponse ( responseObject );
+                        if (list.size ( ) > 0) {
+                            ticketAdapter.setSource ( list );
+                        } else {
+                            tv_noTicket.setVisibility ( View.VISIBLE );
+
+                        }
+                        progressBar.setVisibility ( View.GONE );
+
+                    }
+
 
                 } else {
 
@@ -177,6 +242,41 @@ public class TicketListBottomDialog extends BottomSheetDialogFragment {
         }
     }
 
+    private ArrayList <TicketPojo> parseTicketJsonResponse(JSONObject response) throws JSONException {
+        JSONArray responseArray = response.getJSONArray ( "Table" );
+        ArrayList <TicketPojo> ticketList = new ArrayList <> ( );
+
+        for (int i = 0; i < responseArray.length ( ); i++) {
+            JSONObject ticketObject = responseArray.getJSONObject ( i );
+
+            String status = ticketObject.getString ( "APPLICATIONSTATUS" );
+            String ticketNo = ticketObject.getString ( "TICKETNUMBER" );
+            if (status.equalsIgnoreCase ( "1" )) {
+
+                if (ticketNo.equalsIgnoreCase ( ticket )) {
+                    TicketPojo ticketPojo = new TicketPojo ( );
+
+                    ticketPojo.setTicketNumber ( ticketObject.getString ( "TICKETNUMBER" ) );
+                    ticketPojo.setName ( ticketObject.getString ( "NAME" ) );
+                    ticketPojo.setArea ( ticketObject.getString ( "DIV_NAME" ) );
+                    ticketPojo.setApplicationStatus ( ticketObject.getString ( "APPLICATIONSTATUS" ) );
+                    ticketPojo.setTicketGeneratedDate ( ticketObject.getString ( "TICKETGENDATE" ) );
+                    ticketPojo.setMobile ( ticketObject.getString ( "MOBILE_NUMBER" ) );
+                    ticketPojo.setFatherName ( ticketObject.getString ( "FATHERNAME" ) );
+                    ticketPojo.setAddress ( ticketObject.getString ( "ADDRESS" ) );
+                    ticketList.add ( ticketPojo );
+                }
+
+
+            }
+
+
+        }
+
+        return ticketList;
+
+    }
+
     private ArrayList <TicketPojo> parseJsonResponse(JSONObject response) throws JSONException {
         JSONArray responseArray = response.getJSONArray ( "Table" );
         ArrayList <TicketPojo> ticketList = new ArrayList <> ( );
@@ -184,17 +284,23 @@ public class TicketListBottomDialog extends BottomSheetDialogFragment {
         for (int i = 0; i < responseArray.length ( ); i++) {
             JSONObject ticketObject = responseArray.getJSONObject ( i );
 
-            TicketPojo ticketPojo = new TicketPojo ( );
-            ticketPojo.setTicketNumber ( ticketObject.getString ( "TICKETNUMBER" ) );
-            ticketPojo.setName ( ticketObject.getString ( "NAME" ) );
-            ticketPojo.setArea ( ticketObject.getString ( "DIV_NAME" ) );
-            ticketPojo.setApplicationStatus ( ticketObject.getString ( "APPLICATIONSTATUS" ) );
-            ticketPojo.setTicketGeneratedDate ( ticketObject.getString ( "TICKETGENDATE" ) );
-            ticketPojo.setMobile ( ticketObject.getString ( "MOBILE_NUMBER" ) );
-            ticketPojo.setFatherName ( ticketObject.getString ( "FATHERNAME" ) );
-            ticketPojo.setAddress ( ticketObject.getString ( "ADDRESS" ) );
+            String status = ticketObject.getString ( "APPLICATIONSTATUS" );
+            if (status.equalsIgnoreCase ( "1" )) {
 
-            ticketList.add ( ticketPojo );
+                TicketPojo ticketPojo = new TicketPojo ( );
+
+                ticketPojo.setTicketNumber ( ticketObject.getString ( "TICKETNUMBER" ) );
+                ticketPojo.setName ( ticketObject.getString ( "NAME" ) );
+                ticketPojo.setArea ( ticketObject.getString ( "DIV_NAME" ) );
+                ticketPojo.setApplicationStatus ( ticketObject.getString ( "APPLICATIONSTATUS" ) );
+                ticketPojo.setTicketGeneratedDate ( ticketObject.getString ( "TICKETGENDATE" ) );
+                ticketPojo.setMobile ( ticketObject.getString ( "MOBILE_NUMBER" ) );
+                ticketPojo.setFatherName ( ticketObject.getString ( "FATHERNAME" ) );
+                ticketPojo.setAddress ( ticketObject.getString ( "ADDRESS" ) );
+                ticketList.add ( ticketPojo );
+
+
+            }
 
 
         }
@@ -225,55 +331,59 @@ public class TicketListBottomDialog extends BottomSheetDialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(final TicketAdapter.TicketHolder holder, int position) {
+        public void onBindViewHolder(final TicketAdapter.TicketHolder holder, final int position) {
 
 
-            TicketPojo itemList = ticketList.get ( position );
+            final TicketPojo itemList = ticketList.get ( position );
             String status = itemList.getApplicationStatus ( );
 
-          //  if(status.equalsIgnoreCase ( "1" )){
-                String date[] = itemList.getTicketGeneratedDate ( ).split ( "T" );
-                holder.tv_area.setText ( itemList.getArea ( ) );
-                holder.tv_date.setText ( date[0] );
-                holder.tv_ticket.setText ( itemList.getTicketNumber ( ) );
+            //  if(status.equalsIgnoreCase ( "1" )){
+            String date[] = itemList.getTicketGeneratedDate ( ).split ( "T" );
+            holder.tv_area.setText ( itemList.getArea ( ) );
+            holder.tv_date.setText ( date[0] );
+            holder.tv_ticket.setText ( itemList.getTicketNumber ( ) );
 
 
+            holder.tv_status.setText ( "Status: Ticket Generated" );
 
-                holder.tv_status.setText ( "Status: Ticket Generated" +status  );
+            holder.im_menu.setOnClickListener ( new View.OnClickListener ( ) {
+                @Override
+                public void onClick(View v) {
 
-                holder.im_menu.setOnClickListener ( new View.OnClickListener ( ) {
-                    @Override
-                    public void onClick(View v) {
-
-                        PopupMenu popup = new PopupMenu ( context, holder.im_menu );
-                        //inflating menu from xml resource
-                        popup.inflate ( R.menu.call_status_menu );
-                        //adding click listener
-                        popup.setOnMenuItemClickListener ( new PopupMenu.OnMenuItemClickListener ( ) {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                switch (item.getItemId ( )) {
-                                    case R.id.changeStatus:
-
-
-                                        //  showPaymentDialog ( R.layout.rwa_payment_cheque, true, true );
-                                        return true;
-                                    case R.id.ticketInfo:
-                                        //  showManagerDialog ( );
+                    PopupMenu popup = new PopupMenu ( context, holder.im_menu );
+                    //inflating menu from xml resource
+                    popup.inflate ( R.menu.call_status_menu );
+                    //adding click listener
+                    popup.setOnMenuItemClickListener ( new PopupMenu.OnMenuItemClickListener ( ) {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId ( )) {
+                                case R.id.changeStatus:
 
 
-                                       // showStatusDialog ();
-                                        return true;
+                                    //  showPaymentDialog ( R.layout.rwa_payment_cheque, true, true );
+                                    return true;
+                                case R.id.ticketInfo:
+                                    //  showManagerDialog ( );
 
-                                    default:
-                                        return false;
-                                }
+
+                                    String name = ticketList.get ( position ).getName ( );
+                                    String address = ticketList.get ( position ).getAddress ( );
+                                    String mobile = ticketList.get ( position ).getMobile ( );
+                                    String ticketDate = ticketList.get ( position ).getTicketGeneratedDate ( );
+
+                                    showStatusDialog ( name, mobile, address, ticketDate );
+                                    return true;
+
+                                default:
+                                    return false;
                             }
-                        } );
-                        //displaying the popup
-                        popup.show ( );
-                    }
-                } );
+                        }
+                    } );
+                    //displaying the popup
+                    popup.show ( );
+                }
+            } );
 
 
             /*}
@@ -331,14 +441,20 @@ public class TicketListBottomDialog extends BottomSheetDialogFragment {
                         TicketPojo pojo = ticketList.get ( getAdapterPosition ( ) );
                         Intent intent = new Intent ( getActivity ( ), Existing_CurrentDetailtest.class );
 
-                        intent.putExtra ( "div_code", IBC );
+                        Bundle bundle=new Bundle (  );
+                        bundle.putString ( "div_code", IBC );
+                        bundle.putString ( "sec_code", BSC );
+                        bundle.putString ( "ticket", pojo.getTicketNumber ( ) );
+
+                        /*intent.putExtra ( "div_code", IBC );
                         intent.putExtra ( "sec_code", BSC );
                         intent.putExtra ( "ticket", pojo.getTicketNumber ( ) );
                         intent.putExtra ( "father", pojo.getFatherName ( ) );
                         intent.putExtra ( "address", pojo.getAddress ( ) );
                         intent.putExtra ( "mobile", pojo.getMobile ( ) );
-                        intent.putExtra ( "name", pojo.getName ( ) );
+                        intent.putExtra ( "name", pojo.getName ( ) );*/
 
+                        intent.putExtras ( bundle );
                         startActivity ( intent );
 
 
@@ -348,7 +464,7 @@ public class TicketListBottomDialog extends BottomSheetDialogFragment {
                 im_call.setOnClickListener ( new View.OnClickListener ( ) {
                     @Override
                     public void onClick(View view) {
-                        String phone = ticketList.get ( getAdapterPosition ( ) ).getMobile ();
+                        String phone = ticketList.get ( getAdapterPosition ( ) ).getMobile ( );
                         Intent intent = new Intent ( Intent.ACTION_DIAL, Uri.fromParts ( "tel", phone, null ) );
                         startActivity ( intent );
                     }
@@ -360,36 +476,41 @@ public class TicketListBottomDialog extends BottomSheetDialogFragment {
 
 
     }
-    public void showStatusDialog(String name,String mobile,String address,String ticketDate){
+
+    public void showStatusDialog(String name, String mobile, String address, String ticketDate) {
 
         // RadioButton rb_reject,rb_accept,rb_hold;
-        DialogBox dialogBox=new DialogBox ( getActivity () );
+        DialogBox dialogBox = new DialogBox ( getActivity ( ) );
 
-        Dialog dialog=dialogBox.setRequestedDialog ( true,R.layout.user_info_dialog );
+        final Dialog dialog = dialogBox.setRequestedDialog ( false, R.layout.user_info_dialog );
 
-        TextView tv_name,tv_mobile, tv_address,tv_ticketDate;
+        TextView tv_name, tv_mobile, tv_address, tv_ticketDate;
 
-        tv_name=dialog.findViewById ( R.id.tv_name );
-        tv_mobile=dialog.findViewById ( R.id.tv_mobile );
-        tv_address=dialog.findViewById ( R.id.tv_address );
-        tv_ticketDate=dialog.findViewById ( R.id.tv_ticket );
+        Button bt_cancel;
+        tv_name = dialog.findViewById ( R.id.tv_name );
+        tv_mobile = dialog.findViewById ( R.id.tv_mobile );
+        tv_address = dialog.findViewById ( R.id.tv_address );
+        tv_ticketDate = dialog.findViewById ( R.id.tv_ticket );
 
 
         tv_name.setText ( name );
         tv_address.setText ( address );
-        tv_ticketDate.setText ( ticketDate );
+        tv_ticketDate.setText ( ticketDate.split ( "T" )[0] );
         tv_mobile.setText ( mobile );
+        bt_cancel = dialog.findViewById ( R.id.bt_close );
 
 
+        bt_cancel.setOnClickListener ( new View.OnClickListener ( ) {
+            @Override
+            public void onClick(View view) {
 
-
-
-
-        dialog.show ();
+                dialog.dismiss ( );
+            }
+        } );
+        dialog.show ( );
 
 
     }
-
 
 
 }

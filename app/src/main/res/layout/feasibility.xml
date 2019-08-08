@@ -17,6 +17,7 @@
                     android:layout_marginStart="15dp"
                     android:clickable="true"
                     android:focusable="true"
+                    android:padding="10dp"
                     android:foreground="?android:attr/selectableItemBackground"
 
                     android:layout_marginLeft="15dp" />
@@ -58,10 +59,21 @@
                         android:text="Transformer Code*:"
                         style="@style/label_title"/>
 
+<!--
                     <EditText
                         android:id="@+id/tranformer_code"
                         android:inputType="text"
                         style="@style/input_gen"/>
+
+-->
+
+                    <Spinner
+                        android:id="@+id/sp_transformerCode"
+                        style="@style/spinner_gen"
+                        android:background="@color/themecolor"
+                        android:entries="@array/transformer_code"
+                        android:popupBackground="@color/themecolor"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -79,6 +91,52 @@
                         android:maxLength="10"
                         android:digits="0,1,2,3,4,5,6,7,8,9"
                         style="@style/input_gen"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/relativeLayout22"
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:id="@+id/view_dtc_no"
+                        android:text="DTC :"
+                        style="@style/label_title"/>
+
+                    <EditText
+                        android:id="@+id/et_dtc"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:digits="0,1,2,3,4,5,6,7,8,9"
+                        style="@style/input_gen"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/linear_label_holder">
+                    <!--  Screen Design for Food tab -->
+                    <TextView
+                        android:id="@+id/tv_ibc"
+                        android:text="IBC* :"
+                        style="@style/label_title"/>
+
+                    <Spinner
+                        android:id="@+id/sp_divisionSpinner"
+                        android:entries="@array/tv"
+                        android:background="@color/themecolor"
+                        android:popupBackground="@color/themecolor"
+                        style="@style/spinner_gen"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/linear_label_holder">
+
+                    <TextView
+                        android:id="@+id/tv_bsc"
+                        android:text="BSC*:"
+                        style="@style/label_title"/>
+
+                    <Spinner
+                        android:id="@+id/sp_section"
+                        android:background="@color/themecolor"
+                        android:popupBackground="@color/themecolor"
+                        style="@style/spinner_gen"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -103,24 +161,28 @@
 
                 <LinearLayout
                     android:id="@+id/linear_tariff_type"
+
                     style="@style/linear_label_holder">
 
                     <TextView
-                        android:id="@+id/cons_type"
-                        android:text="Select Tariff Name :"
+                        android:id="@+id/tv_tariffName"
+                        android:text="Select Tariff Name* :"
                         style="@style/label_title"/>
 
 
                 </LinearLayout>
 
                 <LinearLayout
+
                     android:id="@+id/linear_tariff"
                     style="@style/linear_label_holder">
                     <Spinner
                         android:id="@+id/spinner_tarrif_name"
                         style="@style/spinner_gen"
                         android:background="@color/themecolor"
-                        android:popupBackground="@color/themecolor"></Spinner>
+                        android:popupBackground="@color/themecolor">
+
+                    </Spinner>
 
                    <!-- <RadioGroup
                         android:id="@+id/radio_tariff_type"
@@ -432,6 +494,7 @@
                             android:layout_width="wrap_content"
                             android:textSize="20dp"/>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -535,8 +598,9 @@
                         style="@style/linear_label_holder"
                         android:id="@+id/linear_distance">
 
+
                         <TextView
-                            android:text="Distance  : "
+                            android:text="Service Cable Length  : "
                             android:textStyle="bold"
                             android:id="@+id/tv_distance"
                             style="@style/label_title"/>

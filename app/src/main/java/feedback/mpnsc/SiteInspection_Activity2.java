@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,6 +84,11 @@ public class SiteInspection_Activity2 extends Activity {
     EditText ed_name, ed_address, ed_phone, ed_father, ed_landmark;
     String str_name, str_address, str_phone, str_father, str_landmark;
 
+    EditText et_middleName, et_lastName, et_address2, et_address3;
+
+    String str_address2, str_address3, str_middleName, str_lastName;
+
+    ScrollView sv_container;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
@@ -115,9 +121,14 @@ public class SiteInspection_Activity2 extends Activity {
         ed_landmark = findViewById ( R.id.et_landmark );
         ed_phone = findViewById ( R.id.et_mobile );
 
-        im_back=findViewById ( R.id.im_back );
+        et_address2 = findViewById ( R.id.et_address2 );
+        et_address3 = findViewById ( R.id.et_address3 );
+        et_middleName = findViewById ( R.id.et_middleName );
+        et_lastName = findViewById ( R.id.et_lastName );
 
+        im_back = findViewById ( R.id.im_back );
 
+        sv_container=findViewById ( R.id.scrollView );
 
         try {
             tv_division = new SpannableString ( txt_divison.getText ( ).toString ( ) );
@@ -125,22 +136,28 @@ public class SiteInspection_Activity2 extends Activity {
             tv_name = new SpannableString ( txt_Name.getText ( ).toString ( ) );
             tv_fanme = new SpannableString ( txt_fname.getText ( ).toString ( ) );
             tv_address = new SpannableString ( txt_address.getText ( ).toString ( ) );
-            tv_landmark = new SpannableString ( txt_landmark.getText ( ).toString ( ) );
+
+          //  tv_landmark = new SpannableString ( txt_landmark.getText ( ).toString ( ) );
+
             tv_Mobile = new SpannableString ( txt_Mobile.getText ( ).toString ( ) );
             tv_division.setSpan ( new ForegroundColorSpan ( Color.RED ), 3, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
             tv_dc.setSpan ( new ForegroundColorSpan ( Color.RED ), 3, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
-            tv_name.setSpan ( new ForegroundColorSpan ( Color.RED ), 4, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+            tv_name.setSpan ( new ForegroundColorSpan ( Color.RED ), 10, 11, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
             tv_fanme.setSpan ( new ForegroundColorSpan ( Color.RED ), 23, 24, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
-            tv_address.setSpan ( new ForegroundColorSpan ( Color.RED ), 7, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
-            tv_landmark.setSpan ( new ForegroundColorSpan ( Color.RED ), 8, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+            tv_address.setSpan ( new ForegroundColorSpan ( Color.RED ), 9, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+
+           // tv_landmark.setSpan ( new ForegroundColorSpan ( Color.RED ), 8, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+
             tv_Mobile.setSpan ( new ForegroundColorSpan ( Color.RED ), 6, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
             txt_divison.setText ( tv_division );
             txt_dc.setText ( tv_dc );
             txt_Name.setText ( tv_name );
             txt_fname.setText ( tv_fanme );
             txt_address.setText ( tv_address );
-            txt_landmark.setText ( tv_landmark );
-            txt_Mobile.setText ( tv_Mobile );
+
+           // txt_landmark.setText ( tv_landmark );
+
+           /* txt_Mobile.setText ( tv_Mobile );
             ed_name.addTextChangedListener ( new TextWatcher ( ) {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -189,7 +206,7 @@ public class SiteInspection_Activity2 extends Activity {
                     ed_father.setBackgroundColor ( getResources ( ).getColor ( R.color.themecolor ) );
                 }
             } );
-            ed_landmark.addTextChangedListener ( new TextWatcher ( ) {
+           */ /*ed_landmark.addTextChangedListener ( new TextWatcher ( ) {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 }
@@ -204,8 +221,8 @@ public class SiteInspection_Activity2 extends Activity {
                 public void afterTextChanged(Editable editable) {
                     ed_landmark.setBackgroundColor ( getResources ( ).getColor ( R.color.themecolor ) );
                 }
-            } );
-            ed_phone.addTextChangedListener ( new TextWatcher ( ) {
+            } );*/
+            /*ed_phone.addTextChangedListener ( new TextWatcher ( ) {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 }
@@ -221,13 +238,13 @@ public class SiteInspection_Activity2 extends Activity {
                     ed_phone.setBackgroundColor ( getResources ( ).getColor ( R.color.themecolor ) );
                 }
             } );
-
+*/
 
             im_back.setOnClickListener ( new View.OnClickListener ( ) {
                 @Override
                 public void onClick(View view) {
 
-                    ShowAlertonBack ();
+                    ShowAlertonBack ( );
 
                 }
             } );
@@ -238,8 +255,8 @@ public class SiteInspection_Activity2 extends Activity {
 
         //below code prefix 0 to the editText
         String code = "0";
-        ed_phone.setCompoundDrawablesWithIntrinsicBounds(new TextDrawable (code), null, null, null);
-        ed_phone.setCompoundDrawablePadding(code.length()*10);
+        ed_phone.setCompoundDrawablesWithIntrinsicBounds ( new TextDrawable ( code ), null, null, null );
+        ed_phone.setCompoundDrawablePadding ( code.length ( ) * 10 );
 
 
         //        back button initialized
@@ -363,27 +380,57 @@ public class SiteInspection_Activity2 extends Activity {
                 str_address = ed_address.getText ( ).toString ( ).trim ( );
                 str_father = ed_father.getText ( ).toString ( ).trim ( );
                 str_landmark = ed_landmark.getText ( ).toString ( ).trim ( );
-                str_phone = "0"+ed_phone.getText ( ).toString ( ).trim ( );
+                str_phone = "0" + ed_phone.getText ( ).toString ( ).trim ( );
 
-                DataHolderClass.getInstance ( ).set_name ( str_name );
+                str_address2 = et_address2.getText ( ).toString ( ).trim ( );
+                str_address3 = et_address3.getText ( ).toString ( ).trim ( );
+                str_middleName = et_middleName.getText ( ).toString ( ).trim ( );
+                str_lastName = et_lastName.getText ( ).toString ( ).trim ( );
+
+
+
 
 
                 if (spinner_project.getSelectedItemPosition ( ) == 0) {
-                    spinner_project.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+
+                    Toast.makeText ( SiteInspection_Activity2.this, "Please Select IBC", Toast.LENGTH_SHORT ).show ( );
+
                 } else if (spinner_geographic.getSelectedItemPosition ( ) == 0) {
-                    spinner_geographic.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+                    Toast.makeText ( SiteInspection_Activity2.this, "Please Select BSC", Toast.LENGTH_SHORT ).show ( );
+
                 } else if (spinner_subarea_one.getSelectedItemPosition ( ) == 0) {
-                    spinner_subarea_one.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+                    Toast.makeText ( SiteInspection_Activity2.this, "Please Select BSC", Toast.LENGTH_SHORT ).show ( );
+
+//                    spinner_subarea_one.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+
                 } else if (str_name.equals ( "" )) {
-                    ed_name.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+                    ed_name.setError ( "Field Required" );
+                    ed_name.requestFocus ();
+                   // ed_name.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+
                 } else if (str_father.equals ( "" )) {
-                    ed_father.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+
+                    ed_father.requestFocus ();
+                    ed_father.setError ( "Field Required" );
+
+                //    ed_father.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
                 } else if (str_address.equals ( "" )) {
-                    ed_address.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
-                } else if (str_landmark.equals ( "" )) {
+
+                    ed_address.requestFocus ();
+                    ed_address.setError ( "Field Required" );
+                  //  ed_address.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+
+                }
+
+                /*else if (str_landmark.equals ( "" )) {
                     ed_landmark.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
-                } else if (str_phone.equals ( "" ) || str_phone.length ( ) != 11) {
-                    ed_phone.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
+                }
+                */
+                else if (str_phone.equals ( "" ) || str_phone.length ( ) != 11) {
+                    ed_phone.requestFocus ();
+                    ed_phone.setError ( "Field Required" );
+
+                  //  ed_phone.setBackgroundColor ( Color.parseColor ( "#412b55" ) );
                 } else {
                     if (connectionDetector.isConnectingToInternet ( )) {
                         //send data
@@ -417,31 +464,31 @@ public class SiteInspection_Activity2 extends Activity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        ShowAlertonBack();
+        ShowAlertonBack ( );
     }
 
-    public void ShowAlertonBack(){
-        SiteInspection_Activity2.this.runOnUiThread(new Runnable() {
+    public void ShowAlertonBack() {
+        SiteInspection_Activity2.this.runOnUiThread ( new Runnable ( ) {
             public void run() {
-                AlertDialog.Builder builder = new AlertDialog.Builder(SiteInspection_Activity2.this,R.style.MyAlertDialogStyle);
-                builder.setCancelable(false);
-                builder.setTitle("Are you sure to go back:");
-                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder ( SiteInspection_Activity2.this, R.style.MyAlertDialogStyle );
+                builder.setCancelable ( false );
+                builder.setTitle ( "Are you sure to go back:" );
+                builder.setPositiveButton ( "YES", new DialogInterface.OnClickListener ( ) {
                     public void onClick(DialogInterface dialog, int id) {
-                        finish();
+                        finish ( );
                     }
-                });
-                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                } );
+                builder.setNegativeButton ( "NO", new DialogInterface.OnClickListener ( ) {
 
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
+                        dialogInterface.cancel ( );
                     }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
+                } );
+                AlertDialog alert = builder.create ( );
+                alert.show ( );
             }
-        });
+        } );
     }
 
     //...........Project Class...........................................//
@@ -479,8 +526,8 @@ public class SiteInspection_Activity2 extends Activity {
                         String project_id = project_cursor.getString ( 2 );
                         String project_name = project_cursor.getString ( 3 );
 
-                        System.out.println ("This is the project id "+project_id );
-                        System.out.println ("This is the project id "+project_name );
+                        System.out.println ( "This is the project id " + project_id );
+                        System.out.println ( "This is the project id " + project_name );
                        /* Log.e("dist_code",dist_code);
                         Log.e("dist_name",dist_name);*/
                         project_id_list.add ( project_id );
@@ -623,14 +670,14 @@ public class SiteInspection_Activity2 extends Activity {
                 }
 
 
-                System.out.println ("This is the project code "+project_id );
-                System.out.println (" Sub Div Code String  "+ SQLiteAdapter.SUB_DIV_CODE );
+                System.out.println ( "This is the project code " + project_id );
+                System.out.println ( " Sub Div Code String  " + SQLiteAdapter.SUB_DIV_CODE );
 
                 subareaone_cursor = sqLiteAdapter.sectionqueueOne ( SQLiteAdapter.SUB_DIV_CODE + " = '" + project_id + "'" );
                 subareaone_code_list.clear ( );
                 subareaone_name_list.clear ( );
 
-                System.out.println ( "This is the cursor length"+subareaone_cursor.getCount ());
+                System.out.println ( "This is the cursor length" + subareaone_cursor.getCount ( ) );
                 if (subareaone_cursor != null && subareaone_cursor.moveToFirst ( )) {
                     //subareaone_geographic_code_list.add("Select ");
                     subareaone_code_list.add ( "Select BSC " );
@@ -640,8 +687,8 @@ public class SiteInspection_Activity2 extends Activity {
                         String subarea_one_code = subareaone_cursor.getString ( 2 );
                         String subarea_one_name = subareaone_cursor.getString ( 3 );
 
-                        System.out.println ("This is the sub area code "+subarea_one_code );
-                        System.out.println ("This is the sub area name "+subarea_one_name );
+                        System.out.println ( "This is the sub area code " + subarea_one_code );
+                        System.out.println ( "This is the sub area name " + subarea_one_name );
                         subareaone_code_list.add ( subarea_one_code );
                         subareaone_name_list.add ( subarea_one_name );
 
@@ -700,8 +747,10 @@ public class SiteInspection_Activity2 extends Activity {
 
                 nameValuePairs.add ( new BasicNameValuePair ( "ConsTitle", DataHolderClass.getInstance ( ).get_title ( ) ) );
                 nameValuePairs.add ( new BasicNameValuePair ( "NewFirstName", str_name ) );
-                nameValuePairs.add ( new BasicNameValuePair ( "NewMiddleName", DataHolderClass.getInstance ( ).getStr_middle_name ( ) ) );
-                nameValuePairs.add ( new BasicNameValuePair ( "NewLastName", DataHolderClass.getInstance ( ).getStr_last_name ( ) ) );
+                nameValuePairs.add ( new BasicNameValuePair ( "NewMiddleName", str_middleName ) );
+                nameValuePairs.add ( new BasicNameValuePair ( "NewLastName", str_lastName ) );
+               // nameValuePairs.add ( new BasicNameValuePair ( "NewMiddleName", DataHolderClass.getInstance ( ).getStr_middle_name ( ) ) );
+               // nameValuePairs.add ( new BasicNameValuePair ( "NewLastName", DataHolderClass.getInstance ( ).getStr_last_name ( ) ) );
                 nameValuePairs.add ( new BasicNameValuePair ( "FatherName", str_father ) );
 
                 nameValuePairs.add ( new BasicNameValuePair ( "Building", DataHolderClass.getInstance ( ).get_bulding_no ( ) ) );
@@ -714,7 +763,8 @@ public class SiteInspection_Activity2 extends Activity {
                 nameValuePairs.add ( new BasicNameValuePair ( "GP", DataHolderClass.getInstance ( ).get_gp ( ) ) );
                 nameValuePairs.add ( new BasicNameValuePair ( "Address1", str_address ) );
                 nameValuePairs.add ( new BasicNameValuePair ( "PIN", DataHolderClass.getInstance ( ).get_pin_no ( ) ) );
-                nameValuePairs.add ( new BasicNameValuePair ( "Address2", str_landmark ) );
+                nameValuePairs.add ( new BasicNameValuePair ( "Address2", str_address2 ) );
+                nameValuePairs.add ( new BasicNameValuePair ( "Address3", str_address3 ) );
 
                 nameValuePairs.add ( new BasicNameValuePair ( "Village", DataHolderClass.getInstance ( ).get_city ( ) ) );
                 nameValuePairs.add ( new BasicNameValuePair ( "District", DataHolderClass.getInstance ( ).get_district ( ) ) );
@@ -728,7 +778,7 @@ public class SiteInspection_Activity2 extends Activity {
                 nameValuePairs.add ( new BasicNameValuePair ( "ApplicationStatus", "" ) );
 
 
-                System.out.println ("This is the namepair value "+nameValuePairs );
+                System.out.println ( "This is the namepair value " + nameValuePairs );
                 Log.e ( "values", "" + nameValuePairs );
                 HttpClient httpclient = new DefaultHttpClient ( );
 
@@ -736,7 +786,8 @@ public class SiteInspection_Activity2 extends Activity {
                 //  HttpPost httppost = new HttpPost(sessionManager.GET_URL());
 
                 //Server Url
-                HttpPost httppost = new HttpPost ( "http://wcrm.fedco.co.in/phedapi/nscapi/generateTicket" );
+             //   HttpPost httppost = new HttpPost ( "http://wcrm.fedco.co.in/phedapi/nscapi/generateTicket" );
+                HttpPost httppost = new HttpPost ( "http://dlenhanceuat.phed.com.ng/dlenhanceapi/nscapi/generateTicket" );
 
 
                 //HttpPost httppost = new HttpPost("http://103.192.172.18:8083/oracletest3.php");
